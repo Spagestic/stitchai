@@ -8,19 +8,51 @@ import { useRouter } from 'expo-router';
 import { useAuth } from '@/context/AuthContext';
 import { getInitials } from '@/lib/utils';
 
-interface ConversationItem {
+interface JerseyHistoryItem {
   id: string;
   title: string;
+  prompt: string;
   date: string;
+  image: any;
 }
 
-// Sample conversations data - replace with your actual data
-const sampleConversations: ConversationItem[] = [
-  { id: '1', title: 'Professional WhatsApp Message Revision for Sponsors', date: 'Monday' },
-  { id: '2', title: 'University Sponsorship: Early Graduation Options', date: 'Monday' },
-  { id: '3', title: 'Solana Blockchain Technical Architecture Explained', date: 'Oct 14' },
-  { id: '4', title: 'University Senate Election Career Guidance', date: 'Oct 02' },
-  { id: '5', title: 'Financial Struggles and Solutions', date: 'Sep 26' },
+// Sample jersey generation history
+const jerseyHistory: JerseyHistoryItem[] = [
+  { 
+    id: '1', 
+    title: 'Midnight Edition', 
+    prompt: 'A sleek black jersey with gold accents',
+    date: 'Today',
+    image: require('@/assets/images/jerseys/black_jersey.png'),
+  },
+  { 
+    id: '2', 
+    title: 'Portugal Home Kit', 
+    prompt: 'Portugal national team inspired design',
+    date: 'Yesterday',
+    image: require('@/assets/images/jerseys/Classic_red_and_whit.png'),
+  },
+  { 
+    id: '3', 
+    title: 'Ocean Wave', 
+    prompt: 'Modern gradient blue jersey with wave pattern',
+    date: 'Nov 27',
+    image: require('@/assets/images/jerseys/Modern_blue_gradient.png'),
+  },
+  { 
+    id: '4', 
+    title: 'Retro 90s Vibes', 
+    prompt: 'Throwback design with geometric patterns',
+    date: 'Nov 25',
+    image: require('@/assets/images/jerseys/Retro_90s_style_jers.png'),
+  },
+  { 
+    id: '5', 
+    title: 'Barcelona Away', 
+    prompt: 'Barcelona inspired with modern twist',
+    date: 'Nov 20',
+    image: require('@/assets/images/jerseys/Modern_blue_gradient.png'),
+  },
 ];
 
 export function CustomDrawerContent(props: DrawerContentComponentProps) {
@@ -43,8 +75,9 @@ export function CustomDrawerContent(props: DrawerContentComponentProps) {
     props.navigation.closeDrawer();
   };
 
-  const filteredConversations = sampleConversations.filter((conv) =>
-    conv.title.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredHistory = jerseyHistory.filter((item) =>
+    item.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    item.prompt.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
@@ -55,7 +88,7 @@ export function CustomDrawerContent(props: DrawerContentComponentProps) {
           <Ionicons name="search" size={20} color={mutedIconColor} />
           <TextInput
             className={`flex-1 ml-3 text-base ${textColor}`}
-            placeholder="Search History"
+            placeholder="Search designs..."
             placeholderTextColor={mutedIconColor}
             value={searchQuery}
             onChangeText={setSearchQuery}
@@ -67,22 +100,37 @@ export function CustomDrawerContent(props: DrawerContentComponentProps) {
       </View>
 
       {/* History Section */}
+      <View className="px-4 py-2">
+        <Text className={`text-xs font-semibold uppercase tracking-wide ${mutedTextColor}`}>
+          Recent Designs
+        </Text>
+      </View>
       <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
-        {filteredConversations.map((conversation) => (
+        {filteredHistory.map((item) => (
           <Pressable
-            key={conversation.id}
-            className="flex-row items-start justify-between px-4 py-4"
+            key={item.id}
+            className="flex-row items-center px-4 py-3"
             onPress={() => {
               closeDrawer();
-              // Navigate to conversation
+              router.push(`/jersey/${item.id}` as any);
             }}>
-            <View className="flex-1 pr-4">
-              <Text className={`text-base font-medium ${textColor}`} numberOfLines={2}>
-                {conversation.title}
+            {/* Jersey Thumbnail */}
+            <Image 
+              source={item.image}
+              className="rounded-lg mr-3"
+              style={{ width: 56, height: 64 }}
+              // resizeMode="cover"
+            />
+            <View className="flex-1">
+              <Text className={`text-base font-medium ${textColor}`} numberOfLines={1}>
+                {item.title}
               </Text>
-              <Text className={`text-sm mt-1 ${mutedTextColor}`}>{conversation.date}</Text>
+              <Text className={`text-sm ${mutedTextColor}`} numberOfLines={1}>
+                {item.prompt}
+              </Text>
+              <Text className={`text-xs mt-0.5 ${mutedTextColor}`}>{item.date}</Text>
             </View>
-            <Pressable className="p-1">
+            <Pressable className="p-2">
               <Ionicons name="ellipsis-vertical" size={18} color={mutedIconColor} />
             </Pressable>
           </Pressable>
