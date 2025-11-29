@@ -1,5 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
-import { Text } from "react-native";
+import { createContext, useContext, useMemo, useEffect, useState } from "react";
 import type { Models } from "react-native-appwrite";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { account } from "@/lib/appwrite";
@@ -78,7 +77,10 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const contextData = { session, user, signin, signout, loading };
+  const contextData = useMemo(
+    () => ({ session, user, signin, signout, loading }),
+    [session, user, loading]
+  );
 
   return (
     <AuthContext.Provider value={contextData}>
