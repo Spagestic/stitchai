@@ -1,11 +1,10 @@
-import { View, ScrollView, Keyboard } from 'react-native';
+import { View, ScrollView, Keyboard, TouchableOpacity } from 'react-native';
 import React, { useState, useEffect } from 'react'
 import { useAuth } from '@/context/AuthContext';
 import { useRouter } from 'expo-router';
-import { CreateCTA } from '@/components/home/CreateCTA';
 import { PopularTeams } from '@/components/home/PopularTeams';
 import { CommunityCreations } from '@/components/home/CommunityCreations';
-import { AIPromptBar } from '@/components/home/AIPromptBar';
+import { Plus } from 'lucide-react-native';
 
 // Popular football teams for quick selection
 const popularTeams = [
@@ -30,7 +29,6 @@ const communityCreations = [
 export default function Page() {
   const { user } = useAuth();
   const router = useRouter();
-  const [searchText, setSearchText] = useState('');
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
 
   const handleTeamPress = (teamId: string) => {
@@ -43,12 +41,6 @@ export default function Page() {
 
   const handleCreatePress = () => {
     router.push('/create' as any);
-  };
-
-  const handlePromptSubmit = () => {
-    if (searchText.trim()) {
-      router.push(`/create?prompt=${encodeURIComponent(searchText)}` as any);
-    }
   };
 
   useEffect(() => {
@@ -74,7 +66,6 @@ export default function Page() {
     <View className="flex-1">
       <ScrollView className="flex-1" keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
         {/* Create from Scratch CTA */}
-        <CreateCTA onPress={handleCreatePress} />
 
         {/* Popular Teams Section */}
         <PopularTeams 
@@ -89,15 +80,14 @@ export default function Page() {
           onJerseyPress={handleJerseyPress}
         />
       </ScrollView>
-      
-      {/* Bottom AI Prompt Bar */}
-      <AIPromptBar 
-        searchText={searchText}
-        onSearchChange={setSearchText}
-        onSendPress={handlePromptSubmit}
-        onCreatePress={handleCreatePress}
-        isKeyboardVisible={isKeyboardVisible}
-      />
+      {!isKeyboardVisible && (
+        <TouchableOpacity 
+          onPress={handleCreatePress}
+          className="absolute bottom-6 right-6 w-14 h-14 bg-primary rounded-full items-center justify-center shadow-lg"
+        >
+          <Plus size={24} color="#fff" />
+        </TouchableOpacity>
+      )}
     </View>
   )
 }
