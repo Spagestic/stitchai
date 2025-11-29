@@ -165,8 +165,8 @@ export function CustomDrawerContent(props: DrawerContentComponentProps) {
         className={`flex-row items-center justify-between px-4 py-4 ${borderColor}`}
       >
         <View className="flex-1 flex-row items-center gap-3">
-          <View className="h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-gray-600">
-            <Text className="font-semibold text-sm text-white">
+          <View className="h-10 w-10 items-center justify-center overflow-hidden rounded-full bg-accent">
+            <Text className="font-semibold text-accent-foreground text-sm">
               {getInitials(user?.name)}
             </Text>
           </View>
