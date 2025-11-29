@@ -48,6 +48,8 @@ function DrawerLayout() {
             />
           ),
           headerRight: () => (
+            <View className="gap-2 flex-row items-center">
+              <ThemeToggle />
             <Link href="/modal" asChild>
               <Pressable className="mr-4">
                 <Ionicons
@@ -57,6 +59,7 @@ function DrawerLayout() {
                 />
               </Pressable>
             </Link>
+            </View>
           ),
         }}
       />
