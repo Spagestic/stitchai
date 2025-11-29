@@ -46,7 +46,7 @@ export default function Page() {
 
   return (
     <View className="flex-1">
-      <ScrollView className="flex-1" keyboardShouldPersistTaps="handled">
+      <ScrollView className="flex-1" keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
         <View className="p-4">
           <Text className="text-lg font-bold mb-4">Create from Template</Text>
           {/* dummy portrait list of images */}
