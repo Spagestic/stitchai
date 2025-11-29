@@ -1,52 +1,62 @@
-import { View, ScrollView, Dimensions, Pressable } from 'react-native';
-import React from 'react';
-import { Text } from '@/components/ui/text';
-import { Plus } from 'lucide-react-native';
+import { Plus } from "lucide-react-native";
+import { Pressable, ScrollView, View } from "react-native";
+import { Text } from "@/components/ui/text";
 
-interface Team {
+type Team = {
   id: string;
   name: string;
   primaryColor: string;
   secondaryColor: string;
   league: string;
-}
+};
 
-interface PopularTeamsProps {
+type PopularTeamsProps = {
   teams: Team[];
   onTeamPress: (teamId: string) => void;
   onCustomTeamPress: () => void;
-}
+};
 
-const { width } = Dimensions.get('window');
 const teamCardWidth = 140;
 
-export const PopularTeams = ({ teams, onTeamPress, onCustomTeamPress }: PopularTeamsProps) => {
+export const PopularTeams = ({
+  teams,
+  onTeamPress,
+  onCustomTeamPress,
+}: PopularTeamsProps) => {
   return (
     <View className="px-4 pt-2">
-      <Text className="text-lg font-bold mb-4">Popular Teams</Text>
-      <ScrollView horizontal showsHorizontalScrollIndicator={false} className="pb-2">
+      <Text className="mb-4 font-bold text-lg">Popular Teams</Text>
+      <ScrollView
+        className="pb-2"
+        horizontal
+        showsHorizontalScrollIndicator={false}
+      >
         {teams.map((team) => (
           <Pressable
+            className="mr-3"
             key={team.id}
             onPress={() => onTeamPress(team.id)}
-            className="mr-3"
             style={{ width: teamCardWidth }}
           >
-            <View 
-              className="h-20 rounded-xl items-center justify-center mb-2 border border-border overflow-hidden"
-              style={{ 
+            <View
+              className="mb-2 h-20 items-center justify-center overflow-hidden rounded-xl border border-border"
+              style={{
                 backgroundColor: team.primaryColor,
               }}
             >
-              <View 
-                className="absolute right-0 top-0 bottom-0 w-1/3"
+              <View
+                className="absolute top-0 right-0 bottom-0 w-1/3"
                 style={{ backgroundColor: team.secondaryColor }}
               />
-              <Text 
-                className="text-center font-bold text-sm px-2 z-10"
-                style={{ 
-                  color: team.primaryColor === '#FFFFFF' || team.primaryColor === '#FBE122' ? '#000' : '#fff',
-                  textShadowColor: 'rgba(0,0,0,0.3)',
+              <Text
+                className="z-10 px-2 text-center font-bold text-sm"
+                style={{
+                  color:
+                    team.primaryColor === "#FFFFFF" ||
+                    team.primaryColor === "#FBE122"
+                      ? "#000"
+                      : "#fff",
+                  textShadowColor: "rgba(0,0,0,0.3)",
                   textShadowOffset: { width: 0, height: 1 },
                   textShadowRadius: 2,
                 }}
@@ -54,19 +64,23 @@ export const PopularTeams = ({ teams, onTeamPress, onCustomTeamPress }: PopularT
                 {team.name}
               </Text>
             </View>
-            <Text className="text-xs text-center text-muted-foreground">{team.league}</Text>
+            <Text className="text-center text-muted-foreground text-xs">
+              {team.league}
+            </Text>
           </Pressable>
         ))}
         {/* Add More Teams Card */}
         <Pressable
-          onPress={onCustomTeamPress}
           className="mr-3"
+          onPress={onCustomTeamPress}
           style={{ width: teamCardWidth }}
         >
-          <View className="h-20 rounded-xl items-center justify-center mb-2 border border-dashed border-muted-foreground">
-            <Plus size={24} className="text-muted-foreground" />
+          <View className="mb-2 h-20 items-center justify-center rounded-xl border border-muted-foreground border-dashed">
+            <Plus className="text-muted-foreground" size={24} />
           </View>
-          <Text className="text-xs text-center text-muted-foreground">Custom Team</Text>
+          <Text className="text-center text-muted-foreground text-xs">
+            Custom Team
+          </Text>
         </Pressable>
       </ScrollView>
     </View>
