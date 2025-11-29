@@ -10,11 +10,16 @@ import { useColorScheme } from 'nativewind';
 import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-context';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { AuthProvider } from '@/context/AuthContext';
+import { useEffect } from 'react';
 
 export { ErrorBoundary } from 'expo-router';
 
 export default function RootLayout() {
-  const { colorScheme } = useColorScheme();
+  const { colorScheme, setColorScheme } = useColorScheme();
+
+  useEffect(() => {
+    setColorScheme('light');
+  }, []);
 
   return (
     <AuthProvider>
