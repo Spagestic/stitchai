@@ -1,73 +1,104 @@
-# Minimal Template
+# Stitch AI 
 
-This is a [React Native](https://reactnative.dev/) project built with [Expo](https://expo.dev/) and [React Native Reusables](https://reactnativereusables.com).
+**AI-Powered Custom Jersey Design App**
 
-It was initialized using the following command:
+Create unique, personalized sports jerseys using AI image generation. Inspired by the excitement of customizing jerseys at stadium booths - but without the wait.
 
-```bash
-npx @react-native-reusables/cli@latest init -t .
-```
+![Sample Jersey](./assets/images/jerseys/Modern_blue_gradient.png)
+
+## ✨ Features
+
+- **AI Jersey Generation** - Describe your dream jersey and let AI bring it to life
+- **Team Templates** - Quick-start designs inspired by popular football teams
+- **Color Palettes** - Choose from curated color schemes or create your own
+- **Personalization** - Add player name and number to your design
+- **Dark Mode** - Full dark/light theme support
+- **Cross-Platform** - Works on iOS, Android, and Web
 
 ## Getting Started
 
-To run the development server:
+### Prerequisites
+
+- Node.js 18+ or Bun
+- Expo CLI (`npm install -g expo-cli`)
+- iOS Simulator (Mac only) or Android Emulator
+
+### Installation
 
 ```bash
-    npm run dev
-    # or
-    yarn dev
-    # or
-    pnpm dev
-    # or
-    bun dev
+# Clone the repository
+git clone https://github.com/Spagestic/stitchai.git
+cd stitchai
+
+# Install dependencies
+bun install
+# or
+npm install
+
+# Start the development server
+bun dev
+# or
+npm run dev
 ```
 
-This will start the Expo Dev Server. Open the app in:
+### Running the App
 
-- **iOS**: press `i` to launch in the iOS simulator _(Mac only)_
-- **Android**: press `a` to launch in the Android emulator
-- **Web**: press `w` to run in a browser
+After starting the dev server:
 
-You can also scan the QR code using the [Expo Go](https://expo.dev/go) app on your device. This project fully supports running in Expo Go for quick testing on physical devices.
+- **iOS**: Press `i` to launch in iOS Simulator (Mac only)
+- **Android**: Press `a` to launch in Android Emulator
+- **Web**: Press `w` to open in browser
+- **Physical Device**: Scan QR code with [Expo Go](https://expo.dev/go)
 
-## Adding components
-
-You can add more reusable components using the CLI:
+## App Structure
 
 ```bash
-bunx --bun react-native-reusables/cli@latest add [...components]
+app/
+├── (app)/                 # Authenticated app routes
+│   ├── (drawer)/          # Drawer navigation
+│   │   ├── index.tsx      # Home page with team templates
+│   │   └── settings.tsx   # User settings
+│   ├── create.tsx         # AI jersey creation page
+│   └── jersey/[id].tsx    # Jersey detail/customization
+├── auth/                  # Authentication screens
+└── _layout.tsx            # Root layout
 ```
 
-> e.g. `bunx --bun react-native-reusables/cli@latest add input textarea`
+## User Flow
 
-If you don't specify any component names, you'll be prompted to select which components to add interactively. Use the `--all` flag to install all available components at once.
+1. **Browse** - Explore team templates or community creations on the home page
+2. **Select** - Tap a team for quick-start or "Create with AI" for custom design
+3. **Customize** - Choose style, colors, add name & number
+4. **Generate** - AI creates your unique jersey design
+5. **Save & Order** - Save to your collection or proceed to order
 
-## Project Features
+## Tech Stack
 
-- ⚛️ Built with [Expo Router](https://expo.dev/router)
-- 🎨 Styled with [Tailwind CSS](https://tailwindcss.com/) via [Nativewind](https://www.nativewind.dev/)
-- 📦 UI powered by [React Native Reusables](https://github.com/founded-labs/react-native-reusables)
-- 🚀 New Architecture enabled
-- 🔥 Edge to Edge enabled
-- 📱 Runs on iOS, Android, and Web
+- **Framework**: [React Native](https://reactnative.dev/) with [Expo](https://expo.dev/)
+- **Navigation**: [Expo Router](https://docs.expo.dev/router/introduction/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) via [NativeWind](https://www.nativewind.dev/)
+- **UI Components**: [React Native Reusables](https://reactnativereusables.com/)
+- **Animations**: [React Native Reanimated](https://docs.swmansion.com/react-native-reanimated/)
+- **Backend**: [Appwrite](https://appwrite.io/) (Authentication)
 
-## Learn More
+## Roadmap
 
-To dive deeper into the technologies used:
+- [ ] Integrate AI image generation API (Stable Diffusion / DALL-E)
+- [ ] Order management and checkout
+- [ ] Social sharing of designs
+- [ ] Team/group ordering
+- [ ] AR jersey preview
+- [ ] Design collaboration features
 
-- [React Native Docs](https://reactnative.dev/docs/getting-started)
-- [Expo Docs](https://docs.expo.dev/)
-- [Nativewind Docs](https://www.nativewind.dev/)
-- [React Native Reusables](https://reactnativereusables.com)
+## License
 
-## Deploy with EAS
+This project is private and not open for public use.
 
-The easiest way to deploy your app is with [Expo Application Services (EAS)](https://expo.dev/eas).
+## Acknowledgments
 
-- [EAS Build](https://docs.expo.dev/build/introduction/)
-- [EAS Updates](https://docs.expo.dev/eas-update/introduction/)
-- [EAS Submit](https://docs.expo.dev/submit/introduction/)
+- Inspired by stadium jersey customization booths in Portugal
+- Built with [React Native Reusables](https://github.com/founded-labs/react-native-reusables)
 
 ---
 
-If you enjoy using React Native Reusables, please consider giving it a ⭐ on [GitHub](https://github.com/founded-labs/react-native-reusables). Your support means a lot!
+Made with ❤️ for football fans everywhere
