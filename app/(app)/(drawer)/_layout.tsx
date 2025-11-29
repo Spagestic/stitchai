@@ -48,7 +48,7 @@ function DrawerLayout() {
       <Drawer.Screen
         name="index"
         options={{
-          headerTitle: 'Home',
+          headerTitle: '',
           drawerLabel: ({ color, focused }) => (
             <Text style={{ color: focused ? color : colorScheme === 'dark' ? '#fff' : '#000' }}>
               Home
