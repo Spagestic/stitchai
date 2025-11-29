@@ -11,14 +11,6 @@ const { width: screenWidth } = Dimensions.get('window');
 
 function DrawerLayout() {
   const { colorScheme } = useColorScheme();
-  const renderThemeToggle = useCallback(
-    () => (
-      <View className="mr-4 flex-row items-center">
-        <UserMenu />
-      </View>
-    ),
-    []
-  );
 
   return (
     <Drawer
@@ -35,7 +27,10 @@ function DrawerLayout() {
           fontWeight: '600',
           color: colorScheme === 'dark' ? '#fff' : '#000',
         },
-        headerRight: renderThemeToggle,
+        headerRight: () =>  
+        (<View className="mr-4 flex-row items-center">
+          <UserMenu />
+         </View>),
         drawerStyle: {
           backgroundColor: colorScheme === 'dark' ? '#000' : '#fff',
           width: screenWidth,
