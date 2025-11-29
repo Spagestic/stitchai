@@ -3,9 +3,12 @@ import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { Link } from 'expo-router';
 import { Drawer } from 'expo-router/drawer';
 import { useColorScheme } from 'nativewind';
-import { Pressable, Text, View } from 'react-native';
+import { Dimensions, Pressable, Text, View } from 'react-native';
 import { ThemeToggle } from '@/components/ThemeToggle';
 import { UserMenu } from '@/components/auth/user-menu';
+import { CustomDrawerContent } from '@/components/CustomDrawerContent';
+
+const { width: screenWidth } = Dimensions.get('window');
 
 function DrawerLayout() {
   const { colorScheme } = useColorScheme();
@@ -21,6 +24,7 @@ function DrawerLayout() {
 
   return (
     <Drawer
+      drawerContent={(props) => <CustomDrawerContent {...props} />}
       screenOptions={{
         headerTintColor: colorScheme === 'dark' ? '#fff' : '#000',
         headerStyle: { backgroundColor: colorScheme === 'dark' ? '#000' : '#fff' },
@@ -29,7 +33,11 @@ function DrawerLayout() {
           color: colorScheme === 'dark' ? '#fff' : '#000',
         },
         headerRight: renderThemeToggle,
-        drawerStyle: { backgroundColor: colorScheme === 'dark' ? '#000' : '#fff' },
+        drawerStyle: {
+          backgroundColor: colorScheme === 'dark' ? '#000' : '#fff',
+          width: screenWidth,
+        },
+        overlayColor: 'transparent',
       }}>
       <Drawer.Screen
         name="(tabs)"
