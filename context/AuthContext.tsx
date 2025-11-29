@@ -1,8 +1,8 @@
-import { createContext, useContext, useMemo, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import type { Models } from "react-native-appwrite";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { account } from "@/lib/appwrite";
 import { HomeSkeleton } from "@/components/home/HomeSkeleton";
+import { account } from "@/lib/appwrite";
 
 const AuthContext = createContext({
   session: null as Models.Session | null,
@@ -77,16 +77,13 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     }
   };
 
-  const contextData = useMemo(
-    () => ({ session, user, signin, signout, loading }),
-    [session, user, loading]
-  );
+  const contextData = { session, user, signin, signout, loading };
 
   return (
     <AuthContext.Provider value={contextData}>
       {loading ? (
         <SafeAreaView>
-         <HomeSkeleton />
+          <HomeSkeleton />
         </SafeAreaView>
       ) : (
         children
