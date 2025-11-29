@@ -1,9 +1,9 @@
-import { Redirect, Stack } from 'expo-router';
-import { useAuth } from '@/context/AuthContext';
+import { Redirect, Stack } from "expo-router";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Layout() {
   const { session } = useAuth();
-  
+
   if (!session) {
     return <Redirect href="/auth/signin" />;
   }
@@ -18,9 +18,9 @@ export default function Layout() {
       <Stack.Screen
         name="jersey/[id]"
         options={{
-          animation: 'fade_from_bottom',
+          animation: "fade_from_bottom",
           animationDuration: 300,
-          presentation: 'card',
+          presentation: "card",
         }}
       />
     </Stack>

@@ -1,37 +1,38 @@
 // _layout.tsx
-import '@/global.css';
+import "@/global.css";
 
-import { NAV_THEME } from '@/lib/theme';
-import { ThemeProvider } from '@react-navigation/native';
-import { PortalHost } from '@rn-primitives/portal';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import { useColorScheme } from 'nativewind';
-import { SafeAreaProvider, initialWindowMetrics } from 'react-native-safe-area-context';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { AuthProvider } from '@/context/AuthContext';
-import { useEffect } from 'react';
-
-export { ErrorBoundary } from 'expo-router';
+import { ThemeProvider } from "@react-navigation/native";
+import { PortalHost } from "@rn-primitives/portal";
+import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { useColorScheme } from "nativewind";
+import { useEffect } from "react";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import {
+  initialWindowMetrics,
+  SafeAreaProvider,
+} from "react-native-safe-area-context";
+import { AuthProvider } from "@/context/AuthContext";
+import { NAV_THEME } from "@/lib/theme";
 
 export default function RootLayout() {
   const { colorScheme, setColorScheme } = useColorScheme();
 
   useEffect(() => {
-    setColorScheme('light');
-  }, []);
+    setColorScheme("light");
+  }, [setColorScheme]);
 
   return (
     <AuthProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <SafeAreaProvider initialMetrics={initialWindowMetrics}>
-          <ThemeProvider value={NAV_THEME[colorScheme ?? 'light']}>
-            <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
+          <ThemeProvider value={NAV_THEME[colorScheme ?? "light"]}>
+            <StatusBar style={colorScheme === "dark" ? "light" : "dark"} />
             <Stack
               screenOptions={{
                 headerShown: false,
-                animation: 'fade',
-                contentStyle: { backgroundColor: 'transparent' },
+                animation: "fade",
+                contentStyle: { backgroundColor: "transparent" },
               }}
             />
             <PortalHost />

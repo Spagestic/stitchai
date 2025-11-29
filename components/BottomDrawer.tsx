@@ -1,123 +1,146 @@
-import React, { useCallback, useEffect, forwardRef, useImperativeHandle, useRef } from 'react';
-import { View, StyleSheet, Dimensions, Pressable, Keyboard, Platform } from 'react-native';
+import type React from "react";
+import { useCallback, useEffect, useImperativeHandle, useRef } from "react";
+import { Keyboard, Pressable, StyleSheet, View } from "react-native";
+import { Gesture, GestureDetector } from "react-native-gesture-handler";
 import Animated, {
-  useSharedValue,
+  useAnimatedReaction,
   useAnimatedStyle,
+  useSharedValue,
   withSpring,
   withTiming,
-  useAnimatedReaction,
-} from 'react-native-reanimated';
-import { Gesture, GestureDetector } from 'react-native-gesture-handler';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+} from "react-native-reanimated";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const DRAWER_HEIGHT = 350;
 
-export interface BottomDrawerRef {
+export type BottomDrawerRef = {
   open: () => void;
   close: () => void;
-}
+};
 
-interface BottomDrawerProps {
+type BottomDrawerProps = {
   children: React.ReactNode;
   onClose?: () => void;
+};
+
+interface BottomDrawerWithRefProps extends BottomDrawerProps {
+  refProp?: React.Ref<BottomDrawerRef>;
 }
 
-const BottomDrawer = forwardRef<BottomDrawerRef, BottomDrawerProps>(
-  ({ children, onClose }, ref) => {
-    const insets = useSafeAreaInsets();
-    const translateY = useSharedValue(DRAWER_HEIGHT + insets.bottom);
-    const isOpen = useSharedValue(false);
-    const overlayOpacity = useSharedValue(0);
+function BottomDrawerComponent({
+  children,
+  onClose,
+  refProp,
+}: BottomDrawerWithRefProps) {
+  const insets = useSafeAreaInsets();
+  const translateY = useSharedValue(DRAWER_HEIGHT + insets.bottom);
+  const isOpen = useSharedValue(false);
+  const overlayOpacity = useSharedValue(0);
 
-    const open = useCallback(() => {
-      isOpen.value = true;
-      overlayOpacity.value = withTiming(1, { duration: 200 });
-      translateY.value = withSpring(0, {
-        damping: 50, // Higher damping for minimal bounce
-        stiffness: 200, // Higher stiffness for faster movement
-      });
-    }, []);
+  const open = useCallback(() => {
+    isOpen.value = true;
+    overlayOpacity.value = withTiming(1, { duration: 200 });
+    translateY.value = withSpring(0, {
+      damping: 50, // Higher damping for minimal bounce
+      stiffness: 200, // Higher stiffness for faster movement
+    });
+  }, [isOpen, overlayOpacity, translateY]);
 
-    const isClosing = useSharedValue(false);
-    const pendingOnClose = useRef(onClose);
+  const isClosing = useSharedValue(false);
+  const pendingOnClose = useRef(onClose);
 
-    useEffect(() => {
-      pendingOnClose.current = onClose;
-    }, [onClose]);
+  useEffect(() => {
+    pendingOnClose.current = onClose;
+  }, [onClose]);
 
-    useAnimatedReaction(
-      () => isClosing.value,
-      (closing) => {
-        if (closing && translateY.value >= DRAWER_HEIGHT * 0.9 + insets.bottom * 0.9) {
-          isClosing.value = false;
-          if (pendingOnClose.current) {
-            pendingOnClose.current();
-          }
+  useAnimatedReaction(
+    () => isClosing.value,
+    (closing) => {
+      if (
+        closing &&
+        translateY.value >= DRAWER_HEIGHT * 0.9 + insets.bottom * 0.9
+      ) {
+        isClosing.value = false;
+        if (pendingOnClose.current) {
+          pendingOnClose.current();
         }
       }
-    );
+    }
+  );
 
-    const close = useCallback(() => {
-      Keyboard.dismiss();
-      isOpen.value = false;
-      isClosing.value = true;
-      overlayOpacity.value = withTiming(0, { duration: 200 });
-      translateY.value = withSpring(DRAWER_HEIGHT + insets.bottom, {
-        damping: 20,
-        stiffness: 150,
-      });
-    }, [onClose, insets.bottom]);
+  const close = useCallback(() => {
+    Keyboard.dismiss();
+    isOpen.value = false;
+    isClosing.value = true;
+    overlayOpacity.value = withTiming(0, { duration: 200 });
+    translateY.value = withSpring(DRAWER_HEIGHT + insets.bottom, {
+      damping: 20,
+      stiffness: 150,
+    });
+  }, [isOpen, isClosing, overlayOpacity, translateY, insets.bottom]);
 
-    useImperativeHandle(ref, () => ({
-      open,
-      close,
-    }));
+  useImperativeHandle(refProp, () => ({
+    open,
+    close,
+  }));
 
-    const gesture = Gesture.Pan()
-      .onUpdate((event) => {
-        if (event.translationY > 0) {
-          translateY.value = event.translationY;
-        }
-      })
-      .onEnd((event) => {
-        if (event.translationY > DRAWER_HEIGHT / 3 || event.velocityY > 500) {
-          close();
-        } else {
-          translateY.value = withSpring(0, {
-            damping: 20,
-            stiffness: 150,
-          });
-        }
-      });
+  const gesture = Gesture.Pan()
+    .onUpdate((event) => {
+      if (event.translationY > 0) {
+        translateY.value = event.translationY;
+      }
+    })
+    .onEnd((event) => {
+      if (event.translationY > DRAWER_HEIGHT / 3 || event.velocityY > 500) {
+        close();
+      } else {
+        translateY.value = withSpring(0, {
+          damping: 20,
+          stiffness: 150,
+        });
+      }
+    });
 
-    const animatedStyle = useAnimatedStyle(() => ({
-      transform: [{ translateY: translateY.value }],
-    }));
+  const animatedStyle = useAnimatedStyle(() => ({
+    transform: [{ translateY: translateY.value }],
+  }));
 
-    const overlayStyle = useAnimatedStyle(() => ({
-      opacity: overlayOpacity.value,
-      pointerEvents: isOpen.value ? 'auto' : 'none',
-    }));
+  const overlayStyle = useAnimatedStyle(() => ({
+    opacity: overlayOpacity.value,
+    pointerEvents: isOpen.value ? "auto" : "none",
+  }));
 
-    return (
-      <>
-        <Animated.View style={[styles.overlay, overlayStyle]} className="bg-black/50">
-          <Pressable style={StyleSheet.absoluteFill} onPress={close} />
+  return (
+    <>
+      <Animated.View
+        className="bg-black/50"
+        style={[styles.overlay, overlayStyle]}
+      >
+        <Pressable onPress={close} style={StyleSheet.absoluteFill} />
+      </Animated.View>
+      <GestureDetector gesture={gesture}>
+        <Animated.View
+          className="border-border border-t bg-background"
+          style={[
+            styles.drawer,
+            animatedStyle,
+            { paddingBottom: insets.bottom + 16 },
+          ]}
+        >
+          <View style={styles.handleContainer}>
+            <View className="bg-muted-foreground/30" style={styles.handle} />
+          </View>
+          <View style={styles.content}>{children}</View>
         </Animated.View>
-        <GestureDetector gesture={gesture}>
-          <Animated.View
-            style={[styles.drawer, animatedStyle, { paddingBottom: insets.bottom + 16 }]}
-            className="border-t border-border bg-background">
-            <View style={styles.handleContainer}>
-              <View style={styles.handle} className="bg-muted-foreground/30" />
-            </View>
-            <View style={styles.content}>{children}</View>
-          </Animated.View>
-        </GestureDetector>
-      </>
-    );
-  }
-);
+      </GestureDetector>
+    </>
+  );
+}
+
+// Usage: <BottomDrawer refProp={ref} ... />
+const BottomDrawer = (
+  props: BottomDrawerProps & { refProp?: React.Ref<BottomDrawerRef> }
+) => <BottomDrawerComponent {...props} />;
 
 const styles = StyleSheet.create({
   overlay: {
@@ -125,7 +148,7 @@ const styles = StyleSheet.create({
     zIndex: 100,
   },
   drawer: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 0,
     left: 0,
     right: 0,
@@ -134,7 +157,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 20,
     borderBottomWidth: 0,
     zIndex: 101,
-    shadowColor: '#000',
+    shadowColor: "#000",
     shadowOffset: {
       width: 0,
       height: -4,
@@ -144,7 +167,7 @@ const styles = StyleSheet.create({
     elevation: 16,
   },
   handleContainer: {
-    alignItems: 'center',
+    alignItems: "center",
     paddingVertical: 12,
   },
   handle: {

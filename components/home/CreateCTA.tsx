@@ -1,34 +1,39 @@
-import { View, Pressable } from 'react-native';
-import React from 'react';
-import { Text } from '@/components/ui/text';
-import { Sparkles } from 'lucide-react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { useColorScheme } from 'nativewind';
+import { Ionicons } from "@expo/vector-icons";
+import { Sparkles } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
+import { Pressable, View } from "react-native";
+import { Text } from "@/components/ui/text";
 
-interface CreateCTAProps {
+type CreateCTAProps = {
   onPress: () => void;
-}
+};
 
 export const CreateCTA = ({ onPress }: CreateCTAProps) => {
   const { colorScheme } = useColorScheme();
-  const isDark = colorScheme === 'dark';
+  const isDark = colorScheme === "dark";
 
   return (
     <View className="p-4">
-      <Pressable 
+      <Pressable
+        className="flex-row items-center justify-between rounded-2xl border border-primary/20 bg-primary/10 p-4"
         onPress={onPress}
-        className="flex-row items-center justify-between bg-primary/10 rounded-2xl p-4 border border-primary/20"
       >
         <View className="flex-row items-center gap-3">
-          <View className="size-12 rounded-full bg-primary items-center justify-center">
-            <Sparkles size={24} color="#fff" />
+          <View className="size-12 items-center justify-center rounded-full bg-primary">
+            <Sparkles color="#fff" size={24} />
           </View>
           <View>
-            <Text className="text-lg font-bold">Create with AI</Text>
-            <Text className="text-muted-foreground text-sm">Design your dream jersey</Text>
+            <Text className="font-bold text-lg">Create with AI</Text>
+            <Text className="text-muted-foreground text-sm">
+              Design your dream jersey
+            </Text>
           </View>
         </View>
-        <Ionicons name="chevron-forward" size={24} color={isDark ? '#fff' : '#000'} />
+        <Ionicons
+          color={isDark ? "#fff" : "#000"}
+          name="chevron-forward"
+          size={24}
+        />
       </Pressable>
     </View>
   );

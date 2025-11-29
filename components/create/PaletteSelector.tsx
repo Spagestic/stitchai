@@ -1,47 +1,58 @@
-import { View, ScrollView, Pressable } from 'react-native';
-import { Text } from '@/components/ui/text';
-import Animated, { FadeInDown } from 'react-native-reanimated';
-import { Palette } from 'lucide-react-native';
-import { colorPalettes } from '@/lib/constants/jersey';
+import { Palette } from "lucide-react-native";
+import { Pressable, ScrollView, View } from "react-native";
+import Animated, { FadeInDown } from "react-native-reanimated";
+import { Text } from "@/components/ui/text";
+import { colorPalettes } from "@/constants/jersey";
 
-interface PaletteSelectorProps {
+type PaletteSelectorProps = {
   selectedPalette: string | null;
   onPaletteChange: (paletteId: string | null) => void;
-}
+};
 
-export function PaletteSelector({ selectedPalette, onPaletteChange }: PaletteSelectorProps) {
+export function PaletteSelector({
+  selectedPalette,
+  onPaletteChange,
+}: PaletteSelectorProps) {
   return (
-    <Animated.View 
+    <Animated.View
+      className="mb-6 px-4"
       entering={FadeInDown.delay(300).duration(400)}
-      className="px-4 mb-6"
     >
-      <View className="flex-row items-center gap-2 mb-3">
-        <Palette size={20} className="text-primary" />
-        <Text className="text-base font-semibold">Color Palette</Text>
+      <View className="mb-3 flex-row items-center gap-2">
+        <Palette className="text-primary" size={20} />
+        <Text className="font-semibold text-base">Color Palette</Text>
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {colorPalettes.map((palette) => (
           <Pressable
-            key={palette.id}
-            onPress={() => onPaletteChange(selectedPalette === palette.id ? null : palette.id)}
-            className={`mr-3 p-3 rounded-xl border-2 ${
+            className={`mr-3 rounded-xl border-2 p-3 ${
               selectedPalette === palette.id
-                ? 'border-primary'
-                : 'border-border'
+                ? "border-primary"
+                : "border-border"
             }`}
+            key={palette.id}
+            onPress={() =>
+              onPaletteChange(
+                selectedPalette === palette.id ? null : palette.id
+              )
+            }
           >
-            <View className="flex-row mb-2">
-              {palette.colors.map((color, index) => (
+            <View className="mb-2 flex-row">
+              {palette.colors.map((color) => (
                 <View
-                  key={index}
-                  className="size-8 rounded-full -ml-2 first:ml-0 border-2 border-background"
+                  className="-ml-2 size-8 rounded-full border-2 border-background first:ml-0"
+                  key={color}
                   style={{ backgroundColor: color }}
                 />
               ))}
             </View>
-            <Text className={`text-xs text-center ${
-              selectedPalette === palette.id ? 'font-medium' : 'text-muted-foreground'
-            }`}>
+            <Text
+              className={`text-center text-xs ${
+                selectedPalette === palette.id
+                  ? "font-medium"
+                  : "text-muted-foreground"
+              }`}
+            >
               {palette.name}
             </Text>
           </Pressable>

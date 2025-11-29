@@ -1,16 +1,21 @@
-import { View, KeyboardAvoidingView, Platform, TextInput, TouchableOpacity } from 'react-native';
-import React from 'react';
-import { Sparkles } from 'lucide-react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { useColorScheme } from 'nativewind';
+import { Ionicons } from "@expo/vector-icons";
+import { Sparkles } from "lucide-react-native";
+import { useColorScheme } from "nativewind";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
 
-interface AIPromptBarProps {
+type AIPromptBarProps = {
   searchText: string;
   onSearchChange: (text: string) => void;
   onSendPress: () => void;
   onCreatePress: () => void;
   isKeyboardVisible: boolean;
-}
+};
 
 export const AIPromptBar = ({
   searchText,
@@ -20,33 +25,37 @@ export const AIPromptBar = ({
   isKeyboardVisible,
 }: AIPromptBarProps) => {
   const { colorScheme } = useColorScheme();
-  const isDark = colorScheme === 'dark';
+  const isDark = colorScheme === "dark";
 
   return (
-    <KeyboardAvoidingView 
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-      className="absolute bottom-0 left-0 right-0"
-      keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      className="absolute right-0 bottom-0 left-0"
+      keyboardVerticalOffset={Platform.OS === "ios" ? 90 : 0}
     >
-      <View className={`p-4 ${isKeyboardVisible ? 'pb-2' : 'pb-8'}`}>
-        <View className="flex-row items-center bg-secondary rounded-full px-2 py-3">
+      <View className={`p-4 ${isKeyboardVisible ? "pb-2" : "pb-8"}`}>
+        <View className="flex-row items-center rounded-full bg-secondary px-2 py-3">
           <TouchableOpacity className="mr-3" onPress={onCreatePress}>
-            <View className="size-10 rounded-full bg-primary items-center justify-center">
-              <Sparkles size={18} color="#fff" />
+            <View className="size-10 items-center justify-center rounded-full bg-primary">
+              <Sparkles color="#fff" size={18} />
             </View>
           </TouchableOpacity>
           <TextInput
-            value={searchText}
+            className="flex-1 text-base text-secondary-foreground"
             onChangeText={onSearchChange}
             onSubmitEditing={onSendPress}
             placeholder="Describe your dream jersey..."
             placeholderTextColor="#9ca3af"
-            className="flex-1 text-secondary-foreground text-base"
             returnKeyType="send"
+            value={searchText}
           />
           {searchText.length > 0 && (
-            <TouchableOpacity onPress={onSendPress} className="ml-2 mr-2">
-              <Ionicons name="send" size={20} color={isDark ? '#fff' : '#000'} />
+            <TouchableOpacity className="mr-2 ml-2" onPress={onSendPress}>
+              <Ionicons
+                color={isDark ? "#fff" : "#000"}
+                name="send"
+                size={20}
+              />
             </TouchableOpacity>
           )}
         </View>

@@ -1,33 +1,33 @@
-import { View, TextInput } from 'react-native';
-import { Text } from '@/components/ui/text';
-import Animated, { FadeInDown } from 'react-native-reanimated';
-import { Wand2 } from 'lucide-react-native';
+import { Wand2 } from "lucide-react-native";
+import { TextInput, View } from "react-native";
+import Animated, { FadeInDown } from "react-native-reanimated";
+import { Text } from "@/components/ui/text";
 
-interface PromptSectionProps {
+type PromptSectionProps = {
   prompt: string;
   onPromptChange: (text: string) => void;
-}
+};
 
 export function PromptSection({ prompt, onPromptChange }: PromptSectionProps) {
   return (
-    <Animated.View 
+    <Animated.View
+      className="mb-6 px-4"
       entering={FadeInDown.delay(100).duration(400)}
-      className="px-4 mb-6"
     >
-      <View className="flex-row items-center gap-2 mb-3">
-        <Wand2 size={20} className="text-primary" />
-        <Text className="text-base font-semibold">Describe Your Jersey</Text>
+      <View className="mb-3 flex-row items-center gap-2">
+        <Wand2 className="text-primary" size={20} />
+        <Text className="font-semibold text-base">Describe Your Jersey</Text>
       </View>
-      <View className="bg-secondary rounded-2xl p-4">
+      <View className="rounded-2xl bg-secondary p-4">
         <TextInput
-          value={prompt}
+          className="min-h-[100px] text-base text-foreground"
+          multiline
+          numberOfLines={4}
           onChangeText={onPromptChange}
           placeholder="E.g., A futuristic jersey with geometric patterns, inspired by cyberpunk aesthetics..."
           placeholderTextColor="#9ca3af"
-          multiline
-          numberOfLines={4}
-          className="text-foreground text-base min-h-[100px]"
-          style={{ textAlignVertical: 'top' }}
+          style={{ textAlignVertical: "top" }}
+          value={prompt}
         />
       </View>
     </Animated.View>

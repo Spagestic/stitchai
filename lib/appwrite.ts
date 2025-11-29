@@ -1,5 +1,5 @@
-import { Client, Databases, TablesDB , Account} from 'react-native-appwrite';
-import { Platform } from 'react-native';
+import { Platform } from "react-native";
+import { Account, Client, Databases, TablesDB } from "react-native-appwrite";
 
 const config = {
   endpoint: process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT,
@@ -10,14 +10,24 @@ const config = {
   },
 };
 
-const client = new Client().setEndpoint(config.endpoint!).setProject(config.projectId!);
+const endpoint = config.endpoint ?? "";
+const projectId = config.projectId ?? "";
+
+const client = new Client().setEndpoint(endpoint).setProject(projectId);
 
 switch (Platform.OS) {
-  case 'ios':
-    client.setPlatform(process.env.EXPO_PUBLIC_APPWRITE_BUNDLE_ID!);
+  case "ios": {
+    const bundleId = process.env.EXPO_PUBLIC_APPWRITE_BUNDLE_ID ?? "";
+    client.setPlatform(bundleId);
     break;
-  case 'android':
-    client.setPlatform(process.env.EXPO_PUBLIC_APPWRITE_PACKAGE_NAME!);
+  }
+  case "android": {
+    const packageName = process.env.EXPO_PUBLIC_APPWRITE_PACKAGE_NAME ?? "";
+    client.setPlatform(packageName);
+    break;
+  }
+  default:
+    break;
 }
 
 const database = new Databases(client);
