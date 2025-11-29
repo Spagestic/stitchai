@@ -109,7 +109,7 @@ export function CustomDrawerContent(props: DrawerContentComponentProps) {
         <Pressable
           onPress={() => {
             closeDrawer();
-            router.push('/account');
+            router.push('/settings');
           }}>
           <Ionicons name="settings-outline" size={22} color={mutedIconColor} />
         </Pressable>

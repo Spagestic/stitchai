@@ -83,7 +83,7 @@ export function UserMenu({ className }: { className?: string }) {
               size="sm"
               onPress={() => {
                 popoverTriggerRef.current?.close();
-                router.push('/account');
+                router.push('/settings');
               }}>
               <Icon as={SettingsIcon} className="size-4" />
               <Text>Manage Account</Text>

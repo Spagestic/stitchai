@@ -2,6 +2,7 @@ import React, { useCallback } from 'react';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { Drawer } from 'expo-router/drawer';
 import { useColorScheme } from 'nativewind';
+import { useRouter } from 'expo-router';
 import { Dimensions, Pressable, Text, View } from 'react-native';
 import { UserMenu } from '@/components/auth/user-menu';
 import { CustomDrawerContent } from '@/components/CustomDrawerContent';
@@ -56,6 +57,37 @@ function DrawerLayout() {
           drawerIcon: ({ size, color, focused }) => (
             <Ionicons
               name="home-outline"
+              size={size}
+              color={focused ? color : colorScheme === 'dark' ? '#fff' : '#000'}
+            />
+          ),
+        }}
+      />
+      <Drawer.Screen
+        name="settings"
+        options={{
+          headerTitle: 'Settings',
+          headerLeft: () => {
+            const router = useRouter();
+            return (
+              <Pressable onPress={() => router.back()} className="pl-4">
+                <Ionicons
+                  name="close"
+                  size={24}
+                  color={colorScheme === 'dark' ? '#fff' : '#000'}
+                />
+              </Pressable>
+            );
+          },
+          headerRight: () => null,
+          drawerLabel: ({ color, focused }) => (
+            <Text style={{ color: focused ? color : colorScheme === 'dark' ? '#fff' : '#000' }}>
+              Settings
+            </Text>
+          ),
+          drawerIcon: ({ size, color, focused }) => (
+            <Ionicons
+              name="settings-outline"
               size={size}
               color={focused ? color : colorScheme === 'dark' ? '#fff' : '#000'}
             />

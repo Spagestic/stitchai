@@ -3,7 +3,7 @@ import { useAuth } from '@/context/AuthContext';
 import { useState } from 'react';
 import { getInitials } from '@/lib/utils';
 
-export default function Account() {
+export default function Settings() {
   const { user } = useAuth();
   const [imageLoadError, setImageLoadError] = useState(false);
 
