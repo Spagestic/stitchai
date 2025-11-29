@@ -41,8 +41,24 @@ export default function Page() {
   return (
     <View className="flex-1">
       <ScrollView className="flex-1" keyboardShouldPersistTaps="handled">
+        <View className="p-4">
+          <Text className="text-lg font-bold mb-4">Create from Template</Text>
+          {/* dummy portrait list of images */}
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} className="">
+            {[1, 2, 3, 4, 5].map((item) => (
+              <View key={item} className="mr-4">
+                <Image
+                  source={require('@/assets/images/jerseys/black_jersey.png')}
+                  style={{ width: 120, height: 180, borderRadius: 12 }}
+                  resizeMode="cover"
+                />
+              </View>
+            ))}
+          </ScrollView>
+          </View>
+
         <View className="p-4 pb-24">
-          <Text className="text-2xl font-bold mb-4">Explore</Text>
+          <Text className="text-lg font-bold mb-4">Explore</Text>
           <View className="flex-row flex-wrap justify-between">
             {jerseyImages.map((jersey) => (
               <View key={jersey.id} className="mb-4" style={{ width: imageWidth }}>
