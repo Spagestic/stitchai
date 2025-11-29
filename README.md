@@ -35,10 +35,10 @@ You can also scan the QR code using the [Expo Go](https://expo.dev/go) app on yo
 You can add more reusable components using the CLI:
 
 ```bash
-npx react-native-reusables/cli@latest add [...components]
+bunx --bun react-native-reusables/cli@latest add [...components]
 ```
 
-> e.g. `npx react-native-reusables/cli@latest add input textarea`
+> e.g. `bunx --bun react-native-reusables/cli@latest add input textarea`
 
 If you don't specify any component names, you'll be prompted to select which components to add interactively. Use the `--all` flag to install all available components at once.
 

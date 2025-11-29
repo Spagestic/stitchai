@@ -1,0 +1,60 @@
+import { Image, ScrollView, Text, View, Switch } from 'react-native';
+import { useAuth } from '@/context/AuthContext';
+import { useState } from 'react';
+
+export default function Profile() {
+  const { user } = useAuth();
+  const [imageLoadError, setImageLoadError] = useState(false);
+
+  // Get user display info
+  const displayName = user?.name || 'User';
+  const userEmail = user?.email || '';
+
+  // Format member since date from user.$createdAt
+  const getMemberSince = () => {
+    if (!user?.$createdAt) return 'Member';
+    const date = new Date(user.$createdAt);
+    const month = date.toLocaleString('default', { month: 'short' });
+    const year = date.getFullYear();
+    return `Member Since: ${month} ${year}`;
+  };
+
+  // Get initials for avatar fallback
+  const getInitials = (name?: string) => {
+    if (!name) return '??';
+    const nameParts = name.trim().split(' ');
+    if (nameParts.length === 1) {
+      return nameParts[0].substring(0, 2).toUpperCase();
+    }
+    return (nameParts[0][0] + nameParts[nameParts.length - 1][0]).toUpperCase();
+  };
+
+  // Get Appwrite avatar URL
+  const getAvatarUrl = () => {
+    if (!user?.name) return undefined;
+    const endpoint = process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT || 'https://cloud.appwrite.io/v1';
+    return `${endpoint}/avatars/initials?name=${encodeURIComponent(user.name)}&width=200&height=200`;
+  };
+
+  return (
+    <ScrollView className="flex-1 bg-background" contentContainerStyle={{ paddingBottom: 100 }}>
+      {/* Profile Avatar & Info */}
+      <View className="items-center px-6 py-6">
+        <View className="h-28 w-28 items-center justify-center overflow-hidden rounded-full border-4 border-border bg-muted">
+          {getAvatarUrl() && !imageLoadError ? (
+            <Image
+              source={{ uri: getAvatarUrl() }}
+              className="h-full w-full"
+              resizeMode="cover"
+              onError={() => setImageLoadError(true)}
+            />
+          ) : (
+            <Text className="text-4xl font-normal text-foreground">{getInitials(user?.name)}</Text>
+          )}
+        </View>
+        <Text className="mt-4 text-2xl font-bold text-foreground">{displayName}</Text>
+        {userEmail && <Text className="mt-1 text-xs text-muted-foreground">{userEmail}</Text>}
+      </View>
+    </ScrollView>
+  );
+}
