@@ -1,7 +1,9 @@
 import { LinearGradient } from "expo-linear-gradient";
 import { Bookmark } from "lucide-react-native";
 import { Dimensions, Image, Pressable, View } from "react-native";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Text } from "@/components/ui/text";
+import { getInitials } from "@/lib/utils";
 
 type Jersey = {
   id: number;
@@ -26,9 +28,6 @@ export const CommunityCreations = ({
   <View className="p-4 pb-24">
     <View className="mb-4 flex-row items-center justify-between">
       <Text className="font-bold text-lg">Get Inspired</Text>
-      <Pressable>
-        <Text className="text-primary text-sm">See all</Text>
-      </Pressable>
     </View>
     <View className="gap-4">
       {Array.from({ length: Math.ceil(jerseys.length / 2) }).map(
@@ -74,20 +73,21 @@ export const CommunityCreations = ({
                   {/* Top Left - Creator Info */}
                   <View className="absolute top-4 left-4 z-10">
                     <View className="flex-row items-center gap-2">
-                      {jersey.creatorImage !== undefined &&
-                        jersey.creatorImage !== null && (
-                          <Image
-                            source={jersey.creatorImage}
-                            style={{
-                              width: 24,
-                              height: 24,
-                              borderRadius: 12,
-                              borderWidth: 2,
-                              borderColor: "white",
-                            }}
-                          />
-                        )}
-                      <Text className="font-medium text-white text-xs">
+                      <Avatar
+                        alt={jersey.creator}
+                        className="size-6 border-2 border-accent"
+                      >
+                        {jersey.creatorImage !== undefined &&
+                          jersey.creatorImage !== null && (
+                            <AvatarImage source={jersey.creatorImage} />
+                          )}
+                        <AvatarFallback className="text-center">
+                          <Text className="font-normal text-muted-foreground text-xs">
+                            {getInitials(jersey.creator)}
+                          </Text>
+                        </AvatarFallback>
+                      </Avatar>
+                      <Text className="font-medium text-secondary text-xs">
                         {jersey.creator}
                       </Text>
                     </View>
@@ -95,15 +95,15 @@ export const CommunityCreations = ({
 
                   {/* Top Right - Bookmark Button */}
                   <View className="absolute top-4 right-4 z-10">
-                    <Pressable className="rounded-full bg-white/20 p-2">
+                    <Pressable className="rounded-full bg-background/20 p-2">
                       <Bookmark color="white" size={16} strokeWidth={1.5} />
                     </Pressable>
                   </View>
 
                   {/* Bottom - Jersey Info */}
                   <View className="absolute right-4 bottom-4 left-4 z-10">
-                    <View className="border-stone-600/50 border-t pt-4">
-                      <Text className="font-normal text-slate-50 text-sm leading-relaxed">
+                    <View className="">
+                      <Text className="font-normal text-accent text-sm leading-relaxed">
                         {jersey.name}
                       </Text>
                     </View>
