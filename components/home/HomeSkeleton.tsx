@@ -1,3 +1,4 @@
+/** biome-ignore-all lint/suspicious/noArrayIndexKey: <explanation> */
 import { Dimensions, ScrollView, View } from "react-native";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -6,7 +7,6 @@ const teamCardWidth = 140;
 const imageWidth = (width - 48) / 2;
 
 const TEAM_SKELETON_COUNT = 4;
-const JERSEY_SKELETON_COUNT = 4;
 
 export const HomeSkeleton = () => {
   return (
@@ -38,10 +38,10 @@ export const HomeSkeleton = () => {
 
           {/* Image Grid Skeleton */}
           <View className="flex-row flex-wrap justify-between">
-            {Array.from({ length: JERSEY_SKELETON_COUNT }).map((_, i) => (
+            {[...new Array(4)].map((_, i) => (
               <View
-                key={`skeleton-jersey-${i}`}
                 className="mb-4"
+                key={`jersey-${i}`}
                 style={{ width: imageWidth }}
               >
                 <Skeleton
