@@ -92,7 +92,7 @@ export default function CreatePage() {
   };
 
   return (
-    <View className="flex-1 bg-background px-2">
+    <View className="flex-1 bg-background">
       {/* Header */}
       <Animated.View 
         entering={FadeIn.duration(300)}
