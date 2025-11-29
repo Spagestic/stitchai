@@ -3,8 +3,8 @@ import { Plus } from "lucide-react-native";
 import { useEffect, useState } from "react";
 import { Keyboard, ScrollView, TouchableOpacity, View } from "react-native";
 import { CommunityCreations } from "@/components/home/CommunityCreations";
-import { PopularTeams } from "@/components/home/PopularTeams";
 import { HomeSkeleton } from "@/components/home/HomeSkeleton";
+import { PopularTeams } from "@/components/home/PopularTeams";
 import { useAuth } from "@/context/AuthContext";
 
 // Popular football teams for quick selection
