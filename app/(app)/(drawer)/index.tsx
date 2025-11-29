@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Keyboard, ScrollView, TouchableOpacity, View } from "react-native";
 import { CommunityCreations } from "@/components/home/CommunityCreations";
 import { PopularTeams } from "@/components/home/PopularTeams";
+import { HomeSkeleton } from "@/components/home/HomeSkeleton";
 import { useAuth } from "@/context/AuthContext";
 
 // Popular football teams for quick selection
@@ -95,7 +96,7 @@ const communityCreations = [
 ];
 
 export default function Page() {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const router = useRouter();
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
 
@@ -130,6 +131,11 @@ export default function Page() {
       keyboardDidHideListener.remove();
     };
   }, []);
+
+  // Show skeleton while loading
+  if (loading) {
+    return <HomeSkeleton />;
+  }
 
   // Show loading while checking auth
   if (!user) {

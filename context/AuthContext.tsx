@@ -3,6 +3,7 @@ import { Text } from "react-native";
 import type { Models } from "react-native-appwrite";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { account } from "@/lib/appwrite";
+import { HomeSkeleton } from "@/components/home/HomeSkeleton";
 
 const AuthContext = createContext({
   session: null as Models.Session | null,
@@ -83,7 +84,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     <AuthContext.Provider value={contextData}>
       {loading ? (
         <SafeAreaView>
-          <Text>Loading..</Text>
+         <HomeSkeleton />
         </SafeAreaView>
       ) : (
         children
