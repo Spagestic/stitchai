@@ -67,7 +67,7 @@ export default function Page() {
                   style={{ width: imageWidth, height: imageWidth * 1.2, borderRadius: 12 }}
                   resizeMode="cover"
                 />
-                <Text className="mt-2 text-center font-medium">{jersey.name}</Text>
+                <Text className="mt-2 text-center font-medium text-sm">{jersey.name}</Text>
               </View>
             ))}
           </View>
