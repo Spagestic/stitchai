@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, Pressable, ScrollView, Image } from 'react-native';
-import { DrawerContentScrollView, DrawerContentComponentProps } from '@react-navigation/drawer';
-import { Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { DrawerContentComponentProps } from '@react-navigation/drawer';
+import { Ionicons } from '@expo/vector-icons';
 import { useColorScheme } from 'nativewind';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { useAuth } from '@/context/AuthContext';
+import { getInitials } from '@/lib/utils';
 
 interface ConversationItem {
   id: string;
@@ -40,16 +41,6 @@ export function CustomDrawerContent(props: DrawerContentComponentProps) {
 
   const closeDrawer = () => {
     props.navigation.closeDrawer();
-  };
-
-  // Generate initials from user name
-  const getInitials = (name?: string) => {
-    if (!name) return '??';
-    const nameParts = name.trim().split(' ');
-    if (nameParts.length === 1) {
-      return nameParts[0].substring(0, 2).toUpperCase();
-    }
-    return (nameParts[0][0] + nameParts[nameParts.length - 1][0]).toUpperCase();
   };
 
   const filteredConversations = sampleConversations.filter((conv) =>
@@ -118,7 +109,7 @@ export function CustomDrawerContent(props: DrawerContentComponentProps) {
         <Pressable
           onPress={() => {
             closeDrawer();
-            router.push('/settings/account');
+            router.push('/account');
           }}>
           <Ionicons name="settings-outline" size={22} color={mutedIconColor} />
         </Pressable>

@@ -1,33 +1,16 @@
 import { Image, ScrollView, Text, View, Switch } from 'react-native';
 import { useAuth } from '@/context/AuthContext';
 import { useState } from 'react';
+import { getInitials } from '@/lib/utils';
 
-export default function Profile() {
+export default function Account() {
   const { user } = useAuth();
   const [imageLoadError, setImageLoadError] = useState(false);
 
   // Get user display info
   const displayName = user?.name || 'User';
   const userEmail = user?.email || '';
-
-  // Format member since date from user.$createdAt
-  const getMemberSince = () => {
-    if (!user?.$createdAt) return 'Member';
-    const date = new Date(user.$createdAt);
-    const month = date.toLocaleString('default', { month: 'short' });
-    const year = date.getFullYear();
-    return `Member Since: ${month} ${year}`;
-  };
-
-  // Get initials for avatar fallback
-  const getInitials = (name?: string) => {
-    if (!name) return '??';
-    const nameParts = name.trim().split(' ');
-    if (nameParts.length === 1) {
-      return nameParts[0].substring(0, 2).toUpperCase();
-    }
-    return (nameParts[0][0] + nameParts[nameParts.length - 1][0]).toUpperCase();
-  };
+  
 
   // Get Appwrite avatar URL
   const getAvatarUrl = () => {

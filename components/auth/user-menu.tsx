@@ -10,20 +10,11 @@ import { router } from 'expo-router';
 import { LogOutIcon, PlusIcon, SettingsIcon } from 'lucide-react-native';
 import * as React from 'react';
 import { Alert, View } from 'react-native';
+import { getInitials } from '@/lib/utils';
 
 export function UserMenu({ className }: { className?: string }) {
   const { user, signout } = useAuth();
   const popoverTriggerRef = React.useRef<TriggerRef>(null);
-
-  // Generate initials from user name
-  const getInitials = (name?: string) => {
-    if (!name) return '??';
-    const nameParts = name.trim().split(' ');
-    if (nameParts.length === 1) {
-      return nameParts[0].substring(0, 2).toUpperCase();
-    }
-    return (nameParts[0][0] + nameParts[nameParts.length - 1][0]).toUpperCase();
-  };
 
   // Get Appwrite avatar URL for initials
   const getAvatarUrl = () => {
@@ -92,7 +83,7 @@ export function UserMenu({ className }: { className?: string }) {
               size="sm"
               onPress={() => {
                 popoverTriggerRef.current?.close();
-                router.push('/settings/account'); // Update with your settings route
+                router.push('/account');
               }}>
               <Icon as={SettingsIcon} className="size-4" />
               <Text>Manage Account</Text>

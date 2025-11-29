@@ -19,15 +19,6 @@ export default function Page() {
   }
   return (
     <View className="gap-4 p-4">
-          <View className="ml-2 flex-row items-center gap-4">
-          <UserMenu className="size-10" />
-          <View>
-            <Text className="text-xs text-muted-foreground">
-              Today, {dateString.split(', ')[1]}
-            </Text>
-            <Text className="text-md font-bold text-foreground">Hello, {userName}</Text>
-          </View>
-        </View>
     </View>
   )
 }
