@@ -1,8 +1,9 @@
-import { View, Image, ScrollView, Dimensions, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Keyboard } from 'react-native';
+import { View, Image, ScrollView, Dimensions, TextInput, TouchableOpacity, KeyboardAvoidingView, Platform, Keyboard, Pressable } from 'react-native';
 import React, { useState, useEffect } from 'react'
 import { useAuth } from '@/context/AuthContext';
 import { Text } from '@/components/ui/text';
 import { Image as ImageIcon } from 'lucide-react-native';
+import { useRouter } from 'expo-router';
 
 const jerseyImages = [
   { id: 1, source: require('@/assets/images/jerseys/black_jersey.png'), name: 'Black Jersey' },
@@ -16,8 +17,13 @@ const imageWidth = (width - 48) / 2; // 2 columns with padding
 
 export default function Page() {
   const { user } = useAuth();
+  const router = useRouter();
   const [searchText, setSearchText] = useState('');
   const [isKeyboardVisible, setIsKeyboardVisible] = useState(false);
+
+  const handleJerseyPress = (jerseyId: number) => {
+    router.push(`/jersey/${jerseyId}` as any);
+  };
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
@@ -61,14 +67,19 @@ export default function Page() {
           <Text className="text-lg font-bold mb-4">Explore</Text>
           <View className="flex-row flex-wrap justify-between">
             {jerseyImages.map((jersey) => (
-              <View key={jersey.id} className="mb-4" style={{ width: imageWidth }}>
+              <Pressable 
+                key={jersey.id} 
+                className="mb-4" 
+                style={{ width: imageWidth }}
+                onPress={() => handleJerseyPress(jersey.id)}
+              >
                 <Image
                   source={jersey.source}
                   style={{ width: imageWidth, height: imageWidth * 1.2, borderRadius: 12 }}
                   resizeMode="cover"
                 />
                 <Text className="mt-2 text-center font-medium text-sm">{jersey.name}</Text>
-              </View>
+              </Pressable>
             ))}
           </View>
         </View>
