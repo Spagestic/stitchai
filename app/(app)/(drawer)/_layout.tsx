@@ -42,7 +42,7 @@ function DrawerLayout() {
         },
         overlayColor: 'transparent',
         swipeEnabled: true,
-        swipeEdgeWidth: 450,
+        swipeEdgeWidth: 100,
         swipeMinDistance: 5,
       }}>
       <Drawer.Screen
