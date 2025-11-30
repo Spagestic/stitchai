@@ -11,75 +11,8 @@ import {
 import { CommunityCreations } from "@/components/home/CommunityCreations";
 import { HomeSkeleton } from "@/components/home/HomeSkeleton";
 import { PopularTeams } from "@/components/home/PopularTeams";
+import { popularTeams } from "@/constants/teams";
 import { useAuth } from "@/context/AuthContext";
-
-// Popular football teams for quick selection
-const popularTeams = [
-  {
-    id: "real-madrid",
-    name: "Real Madrid",
-    primaryColor: "#FFFFFF",
-    secondaryColor: "#00529F",
-    league: "La Liga",
-    logo: require("@/assets/logos/Spain - LaLiga/Real Madrid.png"),
-  },
-  {
-    id: "barcelona",
-    name: "Barcelona",
-    primaryColor: "#A50044",
-    secondaryColor: "#004D98",
-    league: "La Liga",
-    logo: require("@/assets/logos/Spain - LaLiga/FC Barcelona.png"),
-  },
-  {
-    id: "man-united",
-    name: "Man United",
-    primaryColor: "#DA291C",
-    secondaryColor: "#FBE122",
-    league: "Premier League",
-    logo: require("@/assets/logos/England - Premier League/Manchester United.png"),
-  },
-  {
-    id: "liverpool",
-    name: "Liverpool",
-    primaryColor: "#C8102E",
-    secondaryColor: "#00B2A9",
-    league: "Premier League",
-    logo: require("@/assets/logos/England - Premier League/Liverpool FC.png"),
-  },
-  {
-    id: "bayern",
-    name: "Bayern Munich",
-    primaryColor: "#DC052D",
-    secondaryColor: "#0066B2",
-    league: "Bundesliga",
-    logo: require("@/assets/logos/Germany - Bundesliga/Bayern Munich.png"),
-  },
-  {
-    id: "psg",
-    name: "Paris SG",
-    primaryColor: "#004170",
-    secondaryColor: "#DA291C",
-    league: "Ligue 1",
-    logo: require("@/assets/logos/France - Ligue 1/Paris Saint-Germain.png"),
-  },
-  {
-    id: "juventus",
-    name: "Juventus",
-    primaryColor: "#000000",
-    secondaryColor: "#FFFFFF",
-    league: "Serie A",
-    logo: require("@/assets/logos/Italy - Serie A/Juventus FC.png"),
-  },
-  {
-    id: "sporting",
-    name: "Sporting CP",
-    primaryColor: "#006600",
-    secondaryColor: "#FFFFFF",
-    league: "Liga Portugal",
-    logo: require("@/assets/logos/Portugal - Liga Portugal/Sporting CP.png"),
-  },
-];
 
 // Sample community creations / inspiration
 const communityCreations = [
