@@ -29,7 +29,7 @@ function DrawerLayout() {
         },
         headerRight: () => (
           <View className="mr-4 flex-row items-center">
-            <Bookmark />
+            <Bookmark size={18} />
           </View>
         ),
         drawerStyle: {
