@@ -37,10 +37,10 @@ export function PaletteSelector({
               )
             }
           >
-            <View className="mb-2 flex-row">
+            <View className="mb-2 flex-row gap-1">
               {palette.colors.map((color) => (
                 <View
-                  className="-ml-2 size-8 rounded-full border-2 border-background first:ml-0"
+                  className="-ml-2 size-8 rounded-full border border-muted-foreground first:ml-0"
                   key={color}
                   style={{ backgroundColor: color }}
                 />
