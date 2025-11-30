@@ -7,7 +7,6 @@ import {
 } from "@/components/ui/dialog";
 import { Text } from "@/components/ui/text";
 import type { Team } from "@/constants/teams";
-import { LeagueFilter } from "../LeagueFilter";
 import { TeamSearchInput } from "./TeamSearchInput";
 import { TeamsGrid } from "./TeamsGrid";
 
@@ -24,9 +23,6 @@ type TeamLogoDialogContentProps = {
 };
 
 export function TeamLogoDialogContent({
-  leagues,
-  selectedLeague,
-  onLeagueChange,
   searchQuery,
   onSearchChange,
   filteredTeams,
@@ -44,12 +40,6 @@ export function TeamLogoDialogContent({
       </DialogHeader>
 
       <TeamSearchInput onChangeText={onSearchChange} value={searchQuery} />
-
-      <LeagueFilter
-        leagues={leagues}
-        onLeagueChange={onLeagueChange}
-        selectedLeague={selectedLeague}
-      />
 
       <TeamsGrid
         onSelectTeam={onSelectTeam}
