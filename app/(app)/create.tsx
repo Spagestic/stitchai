@@ -21,8 +21,9 @@ export default function CreatePage() {
     prompt?: string;
   }>();
 
-  // Color picker drawer ref
+  // Refs
   const colorPickerDrawerRef = useRef<BottomDrawerRef>(null);
+  const scrollViewRef = useRef<ScrollView>(null);
 
   // Form state
   const [prompt, setPrompt] = useState(initialPrompt || "");
@@ -89,8 +90,10 @@ export default function CreatePage() {
       <CreateHeader />
 
       <ScrollView
+        automaticallyAdjustKeyboardInsets
         className="flex-1"
         keyboardShouldPersistTaps="handled"
+        ref={scrollViewRef}
         showsVerticalScrollIndicator={false}
       >
         <StyleSelector
