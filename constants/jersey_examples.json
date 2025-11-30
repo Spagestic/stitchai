@@ -1,0 +1,66 @@
+[
+  {
+    "style": "Classic",
+    "team": "Manchester United",
+    "palette": ["#DA291C", "#FFFFFF", "#000000"],
+    "playerName": "David Beckham",
+    "playerNumber": "7",
+    "prompt": "A classic Manchester United jersey with red and white colors, featuring a retro collar."
+  },
+  {
+    "style": "Modern",
+    "team": "FC Barcelona",
+    "palette": ["#004D98", "#A50044", "#FFD700"],
+    "playerName": "Lionel Messi",
+    "playerNumber": "10",
+    "prompt": "A modern FC Barcelona jersey with blue and garnet stripes, slim fit, and gold accents."
+  },
+  {
+    "style": "Minimalist",
+    "team": "Juventus",
+    "palette": ["#000000", "#FFFFFF", "#FFD700"],
+    "playerName": "Cristiano Ronaldo",
+    "playerNumber": "7",
+    "prompt": "A minimalist Juventus jersey with bold black and white stripes and subtle gold trim."
+  },
+  {
+    "style": "Retro",
+    "team": "AC Milan",
+    "palette": ["#FF0000", "#000000", "#FFFFFF"],
+    "playerName": "Paolo Maldini",
+    "playerNumber": "3",
+    "prompt": "A retro AC Milan jersey with thick red and black stripes and a vintage badge."
+  },
+  {
+    "style": "Streetwear",
+    "team": "Paris Saint-Germain",
+    "palette": ["#002D62", "#E30613", "#FFFFFF"],
+    "playerName": "Kylian Mbappé",
+    "playerNumber": "7",
+    "prompt": "A streetwear-inspired PSG jersey with navy base, bold red vertical stripe, and oversized fit."
+  },
+  {
+    "style": "Futuristic",
+    "team": "Bayern Munich",
+    "palette": ["#DC052D", "#FFD700", "#FFFFFF"],
+    "playerName": "Thomas Müller",
+    "playerNumber": "25",
+    "prompt": "A futuristic Bayern Munich jersey with metallic red and gold gradients and geometric patterns."
+  },
+  {
+    "style": "Heritage",
+    "team": "Ajax",
+    "palette": ["#FFFFFF", "#D6001C", "#000000"],
+    "playerName": "Johan Cruyff",
+    "playerNumber": "14",
+    "prompt": "A heritage Ajax jersey with a white base, bold red central stripe, and classic collar."
+  },
+  {
+    "style": "Bold",
+    "team": "Borussia Dortmund",
+    "palette": ["#FDE100", "#000000", "#FFFFFF"],
+    "playerName": "Marco Reus",
+    "playerNumber": "11",
+    "prompt": "A bold Borussia Dortmund jersey with vibrant yellow, black lightning graphics, and modern fit."
+  }
+]

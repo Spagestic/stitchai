@@ -44,6 +44,34 @@ const communityCreations = [
     creator: "Carlos",
     tags: ["Retro", "Bold"],
   },
+  {
+    id: 5,
+    source: require("@/assets/images/jerseys/hunyuan.png"),
+    name: "Nature's Touch",
+    creator: "Sofia",
+    tags: ["Modern", "Futuristic"],
+  },
+  {
+    id: 6,
+    source: require("@/assets/images/jerseys/helloween_2.png"),
+    name: "Halloween Special",
+    creator: "Liam",
+    tags: ["Festive", "Bold"],
+  },
+  {
+    id: 7,
+    source: require("@/assets/images/jerseys/velocity.png"),
+    name: "Velocity",
+    creator: "Emma",
+    tags: ["Modern", "Futuristic"],
+  },
+  {
+    id: 8,
+    source: require("@/assets/images/jerseys/noel_helloween.png"),
+    name: "Spooky Night",
+    creator: "Noel",
+    tags: ["Festive", "Modern"],
+  },
 ];
 
 export default function Page() {
