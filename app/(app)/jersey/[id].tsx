@@ -92,8 +92,8 @@ export default function JerseyDetailPage() {
         <Pressable className="size-10 items-center justify-center rounded-full bg-background/80">
           <Ionicons
             color={colorScheme === "dark" ? "#fff" : "#000"}
-            name="heart-outline"
-            size={24}
+            name="bookmark-outline"
+            size={18}
           />
         </Pressable>
       </View>
