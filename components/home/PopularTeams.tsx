@@ -20,7 +20,7 @@ type PopularTeamsProps = {
   onCustomTeamPress: () => void;
 };
 
-const teamCardWidth = 140;
+const teamCardWidth = 100;
 
 export const PopularTeams = ({
   teams,
