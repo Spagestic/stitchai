@@ -1,3 +1,4 @@
+import type { ImageSourcePropType } from "react-native";
 import { Image, Pressable, View } from "react-native";
 import { Text } from "@/components/ui/text";
 
@@ -7,7 +8,7 @@ type Team = {
   primaryColor: string;
   secondaryColor: string;
   league: string;
-  logoUrl?: string; // Add optional logo URL
+  logo?: ImageSourcePropType;
 };
 
 type TeamCardProps = {
@@ -35,11 +36,11 @@ export const TeamCard = ({ team, onPress, width }: TeamCardProps) => (
       />
 
       {/* Team logo overlay */}
-      {team.logoUrl ? (
+      {team.logo ? (
         <Image
           className="z-10 h-12 w-12"
           resizeMode="contain"
-          source={{ uri: team.logoUrl }}
+          source={team.logo}
         />
       ) : (
         <Text

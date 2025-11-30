@@ -1,4 +1,5 @@
 import { Plus } from "lucide-react-native";
+import type { ImageSourcePropType } from "react-native";
 import { Pressable, ScrollView, View } from "react-native";
 import { Text } from "@/components/ui/text";
 import { TeamCard } from "./TeamCard";
@@ -9,6 +10,7 @@ type Team = {
   primaryColor: string;
   secondaryColor: string;
   league: string;
+  logo?: ImageSourcePropType;
 };
 
 type PopularTeamsProps = {

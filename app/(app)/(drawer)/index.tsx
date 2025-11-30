@@ -21,6 +21,7 @@ const popularTeams = [
     primaryColor: "#FFFFFF",
     secondaryColor: "#00529F",
     league: "La Liga",
+    logo: require("@/assets/logos/Spain - LaLiga/Real Madrid.png"),
   },
   {
     id: "barcelona",
@@ -28,6 +29,7 @@ const popularTeams = [
     primaryColor: "#A50044",
     secondaryColor: "#004D98",
     league: "La Liga",
+    logo: require("@/assets/logos/Spain - LaLiga/FC Barcelona.png"),
   },
   {
     id: "man-united",
@@ -35,6 +37,7 @@ const popularTeams = [
     primaryColor: "#DA291C",
     secondaryColor: "#FBE122",
     league: "Premier League",
+    logo: require("@/assets/logos/England - Premier League/Manchester United.png"),
   },
   {
     id: "liverpool",
@@ -42,6 +45,7 @@ const popularTeams = [
     primaryColor: "#C8102E",
     secondaryColor: "#00B2A9",
     league: "Premier League",
+    logo: require("@/assets/logos/England - Premier League/Liverpool FC.png"),
   },
   {
     id: "bayern",
@@ -49,6 +53,7 @@ const popularTeams = [
     primaryColor: "#DC052D",
     secondaryColor: "#0066B2",
     league: "Bundesliga",
+    logo: require("@/assets/logos/Germany - Bundesliga/Bayern Munich.png"),
   },
   {
     id: "psg",
@@ -56,6 +61,7 @@ const popularTeams = [
     primaryColor: "#004170",
     secondaryColor: "#DA291C",
     league: "Ligue 1",
+    logo: require("@/assets/logos/France - Ligue 1/Paris Saint-Germain.png"),
   },
   {
     id: "juventus",
@@ -63,13 +69,15 @@ const popularTeams = [
     primaryColor: "#000000",
     secondaryColor: "#FFFFFF",
     league: "Serie A",
+    logo: require("@/assets/logos/Italy - Serie A/Juventus FC.png"),
   },
   {
-    id: "portugal",
-    name: "Portugal",
+    id: "sporting",
+    name: "Sporting CP",
     primaryColor: "#006600",
-    secondaryColor: "#FF0000",
-    league: "National",
+    secondaryColor: "#FFFFFF",
+    league: "Liga Portugal",
+    logo: require("@/assets/logos/Portugal - Liga Portugal/Sporting CP.png"),
   },
 ];
 
