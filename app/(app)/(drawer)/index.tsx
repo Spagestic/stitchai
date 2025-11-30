@@ -24,11 +24,25 @@ const communityCreations = [
     tags: ["Modern", "Bold"],
   },
   {
+    id: 10,
+    source: require("@/assets/images/jerseys/noel_diwali.png"),
+    name: "Festive Flair",
+    creator: "Noel",
+    tags: ["Festive", "Elegant"],
+  },
+  {
     id: 2,
     source: require("@/assets/images/jerseys/Classic_red_and_whit.png"),
     name: "Classic Red",
     creator: "Maria",
     tags: ["Classic"],
+  },
+  {
+    id: 6,
+    source: require("@/assets/images/jerseys/helloween_2.png"),
+    name: "Halloween Special",
+    creator: "Liam",
+    tags: ["Festive", "Bold"],
   },
   {
     id: 3,
@@ -45,18 +59,18 @@ const communityCreations = [
     tags: ["Retro", "Bold"],
   },
   {
+    id: 11,
+    source: require("@/assets/images/jerseys/noel_helloween_2.png"),
+    name: "Ghostly Glow",
+    creator: "Noel",
+    tags: ["Festive", "Classic"],
+  },
+  {
     id: 5,
     source: require("@/assets/images/jerseys/hunyuan.png"),
     name: "Nature's Touch",
     creator: "Sofia",
     tags: ["Modern", "Futuristic"],
-  },
-  {
-    id: 6,
-    source: require("@/assets/images/jerseys/helloween_2.png"),
-    name: "Halloween Special",
-    creator: "Liam",
-    tags: ["Festive", "Bold"],
   },
   {
     id: 7,
@@ -71,6 +85,20 @@ const communityCreations = [
     name: "Spooky Night",
     creator: "Noel",
     tags: ["Festive", "Modern"],
+  },
+  {
+    id: 9,
+    source: require("@/assets/images/jerseys/diwali.png"),
+    name: "Diwali Delight",
+    creator: "Olivia",
+    tags: ["Festive", "Elegant"],
+  },
+  {
+    id: 11,
+    source: require("@/assets/images/jerseys/noel_helloween_2.png"),
+    name: "Ghostly Glow",
+    creator: "Noel",
+    tags: ["Festive", "Classic"],
   },
 ];
 
