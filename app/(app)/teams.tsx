@@ -84,31 +84,35 @@ export default function TeamsPage() {
     router.push(`/create?team=${teamId}`);
   };
 
-  const renderTeamItem = ({ item, index }: { item: Team; index: number }) => (
-    <Animated.View
-      className="flex-1 p-2"
-      entering={FadeInDown.delay(index * 50).duration(300)}
-    >
-      <Pressable
-        className="overflow-hidden rounded-xl border border-border bg-card"
-        onPress={() => handleTeamPress(item.id)}
-      >
-        <View className="h-24 items-center justify-center bg-secondary/50">
-          <Image
-            className="h-16 w-16"
-            resizeMode="contain"
-            source={item.logo}
-          />
-        </View>
-        <View className="p-3">
-          <Text className="font-medium text-sm" numberOfLines={1}>
-            {item.name}
-          </Text>
-          <Text className="text-muted-foreground text-xs">{item.league}</Text>
-        </View>
-      </Pressable>
-    </Animated.View>
-  );
+  const renderTeamItem = ({ item, index }: { item: Team; index: number }) => {
+    const isInitialItem = index < PAGE_SIZE;
+    const animationConfig = isInitialItem
+      ? FadeInDown.delay(index * 50).duration(300)
+      : undefined;
+
+    return (
+      <Animated.View className="flex-1 p-2" entering={animationConfig}>
+        <Pressable
+          className="overflow-hidden rounded-xl border border-border bg-card"
+          onPress={() => handleTeamPress(item.id)}
+        >
+          <View className="h-24 items-center justify-center bg-secondary/50">
+            <Image
+              className="h-16 w-16"
+              resizeMode="contain"
+              source={item.logo}
+            />
+          </View>
+          <View className="p-3">
+            <Text className="font-medium text-sm" numberOfLines={1}>
+              {item.name}
+            </Text>
+            <Text className="text-muted-foreground text-xs">{item.league}</Text>
+          </View>
+        </Pressable>
+      </Animated.View>
+    );
+  };
 
   return (
     <View className="flex-1 bg-background">
