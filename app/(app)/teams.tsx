@@ -1,5 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import { SlidersHorizontal } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 import { useState } from "react";
 import { FlatList, Image, Pressable, TextInput, View } from "react-native";
@@ -12,11 +13,12 @@ export default function TeamsPage() {
   const { colorScheme } = useColorScheme();
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedLeague, setSelectedLeague] = useState("All");
+  const [showFilters, setShowFilters] = useState(false);
 
   const filteredTeams = allTeams.filter((team) => {
-    const matchesSearch = team.name
-      .toLowerCase()
-      .includes(searchQuery.toLowerCase());
+    const matchesSearch =
+      team.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      team.league.toLowerCase().includes(searchQuery.toLowerCase());
     const matchesLeague =
       selectedLeague === "All" || team.league === selectedLeague;
     return matchesSearch && matchesLeague;
@@ -67,6 +69,15 @@ export default function TeamsPage() {
           />
         </Pressable>
         <Text className="flex-1 font-bold text-xl">All Teams</Text>
+        <Pressable
+          className="size-10 items-center justify-center rounded-full bg-secondary"
+          onPress={() => setShowFilters(!showFilters)}
+        >
+          <SlidersHorizontal
+            color={colorScheme === "dark" ? "#fff" : "#000"}
+            size={16}
+          />
+        </Pressable>
       </View>
 
       {/* Search Bar */}
@@ -97,34 +108,36 @@ export default function TeamsPage() {
       </View>
 
       {/* League Filter */}
-      <View className="mb-3 px-4">
-        <FlatList
-          data={leagues}
-          horizontal
-          keyExtractor={(item) => item}
-          renderItem={({ item }) => (
-            <Pressable
-              className={`mr-2 rounded-full px-4 py-2 ${
-                selectedLeague === item
-                  ? "bg-primary"
-                  : "border border-border bg-secondary"
-              }`}
-              onPress={() => setSelectedLeague(item)}
-            >
-              <Text
-                className={
+      {showFilters ? (
+        <View className="mb-3 px-4">
+          <FlatList
+            data={leagues}
+            horizontal
+            keyExtractor={(item) => item}
+            renderItem={({ item }) => (
+              <Pressable
+                className={`mr-2 rounded-full px-4 py-2 ${
                   selectedLeague === item
-                    ? "font-medium text-primary-foreground text-xs"
-                    : "text-foreground text-xs"
-                }
+                    ? "bg-primary"
+                    : "border border-border bg-secondary"
+                }`}
+                onPress={() => setSelectedLeague(item)}
               >
-                {item}
-              </Text>
-            </Pressable>
-          )}
-          showsHorizontalScrollIndicator={false}
-        />
-      </View>
+                <Text
+                  className={
+                    selectedLeague === item
+                      ? "font-medium text-primary-foreground text-xs"
+                      : "text-foreground text-xs"
+                  }
+                >
+                  {item}
+                </Text>
+              </Pressable>
+            )}
+            showsHorizontalScrollIndicator={false}
+          />
+        </View>
+      ) : null}
 
       {/* Teams Grid */}
       <FlatList
