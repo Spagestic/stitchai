@@ -1,9 +1,9 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { Drawer } from "expo-router/drawer";
+import { Bookmark } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
 import { Dimensions, Pressable, Text, View } from "react-native";
-import { UserMenu } from "@/components/auth/user-menu";
 import { CustomDrawerContent } from "@/components/CustomDrawerContent";
 
 const { width: screenWidth } = Dimensions.get("window");
@@ -29,7 +29,7 @@ function DrawerLayout() {
         },
         headerRight: () => (
           <View className="mr-4 flex-row items-center">
-            <UserMenu />
+            <Bookmark />
           </View>
         ),
         drawerStyle: {
