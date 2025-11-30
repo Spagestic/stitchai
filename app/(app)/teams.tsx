@@ -1,23 +1,84 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import { useColorScheme } from "nativewind";
-import { useState } from "react";
-import { FlatList, Image, Pressable, TextInput, View } from "react-native";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  Pressable,
+  TextInput,
+  View,
+} from "react-native";
 import Animated, { FadeInDown } from "react-native-reanimated";
 import { Text } from "@/components/ui/text";
 import { allTeams, type Team } from "@/constants/teams";
+
+const PAGE_SIZE = 20;
 
 export default function TeamsPage() {
   const router = useRouter();
   const { colorScheme } = useColorScheme();
   const [searchQuery, setSearchQuery] = useState("");
+  const [displayedCount, setDisplayedCount] = useState(PAGE_SIZE);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
-  const filteredTeams = allTeams.filter((team) => {
-    const matchesSearch =
-      team.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      team.league.toLowerCase().includes(searchQuery.toLowerCase());
-    return matchesSearch;
-  });
+  const filteredTeams = useMemo(
+    () =>
+      allTeams.filter(
+        (team) =>
+          team.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          team.league.toLowerCase().includes(searchQuery.toLowerCase())
+      ),
+    [searchQuery]
+  );
+
+  const displayedTeams = useMemo(
+    () => filteredTeams.slice(0, displayedCount),
+    [filteredTeams, displayedCount]
+  );
+
+  const hasMoreItems = displayedCount < filteredTeams.length;
+
+  // Reset pagination when search query changes
+  useEffect(() => {
+    setDisplayedCount(PAGE_SIZE);
+  }, []);
+
+  // Also reset when search changes
+  const handleSearchChange = useCallback((text: string) => {
+    setSearchQuery(text);
+    setDisplayedCount(PAGE_SIZE);
+  }, []);
+
+  const loadMoreItems = useCallback(() => {
+    if (isLoadingMore || !hasMoreItems) {
+      return;
+    }
+
+    setIsLoadingMore(true);
+    // Small delay for smoother UX
+    setTimeout(() => {
+      setDisplayedCount((prev) =>
+        Math.min(prev + PAGE_SIZE, filteredTeams.length)
+      );
+      setIsLoadingMore(false);
+    }, 100);
+  }, [isLoadingMore, hasMoreItems, filteredTeams.length]);
+
+  const renderFooter = useCallback(() => {
+    if (!isLoadingMore) {
+      return null;
+    }
+    return (
+      <View className="items-center py-4">
+        <ActivityIndicator
+          color={colorScheme === "dark" ? "#fff" : "#000"}
+          size="small"
+        />
+      </View>
+    );
+  }, [isLoadingMore, colorScheme]);
 
   const handleTeamPress = (teamId: string) => {
     router.push(`/create?team=${teamId}`);
@@ -76,13 +137,18 @@ export default function TeamsPage() {
           />
           <TextInput
             className="flex-1 text-foreground"
-            onChangeText={setSearchQuery}
+            onChangeText={handleSearchChange}
             placeholder="Search teams..."
             placeholderTextColor={colorScheme === "dark" ? "#888" : "#666"}
             value={searchQuery}
           />
           {searchQuery.length > 0 && (
-            <Pressable onPress={() => setSearchQuery("")}>
+            <Pressable
+              onPress={() => {
+                setSearchQuery("");
+                setDisplayedCount(PAGE_SIZE);
+              }}
+            >
               <Ionicons
                 color={colorScheme === "dark" ? "#888" : "#666"}
                 name="close-circle"
@@ -97,7 +163,8 @@ export default function TeamsPage() {
       <FlatList
         className="flex-1 px-2"
         columnWrapperStyle={{ justifyContent: "space-between" }}
-        data={filteredTeams}
+        data={displayedTeams}
+        initialNumToRender={PAGE_SIZE}
         keyExtractor={(item) => item.id}
         ListEmptyComponent={
           <View className="flex-1 items-center justify-center py-20">
@@ -109,9 +176,14 @@ export default function TeamsPage() {
             <Text className="mt-4 text-muted-foreground">No teams found</Text>
           </View>
         }
+        ListFooterComponent={renderFooter}
+        maxToRenderPerBatch={10}
         numColumns={2}
+        onEndReached={loadMoreItems}
+        onEndReachedThreshold={0.5}
         renderItem={renderTeamItem}
         showsVerticalScrollIndicator={false}
+        windowSize={5}
       />
     </View>
   );
