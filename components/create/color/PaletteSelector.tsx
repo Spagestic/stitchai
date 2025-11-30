@@ -1,7 +1,7 @@
 import { Palette, X } from "lucide-react-native";
 import { Pressable, ScrollView, View } from "react-native";
 import Animated, { FadeIn, FadeInDown, FadeOut } from "react-native-reanimated";
-import { ColorPickerDialog } from "@/components/create/color/ColorPickerDialog";
+import { ColorPickerTrigger } from "@/components/create/color/ColorPickerDialog";
 import { Text } from "@/components/ui/text";
 import { type ColorPalette, colorPalettes } from "@/constants/jersey";
 
@@ -9,29 +9,18 @@ type PaletteSelectorProps = {
   selectedPalette: string | null;
   onPaletteChange: (paletteId: string | null) => void;
   customPalettes?: ColorPalette[];
-  onCustomPaletteCreate?: (palette: ColorPalette) => void;
   onCustomPaletteDelete?: (paletteId: string) => void;
+  onOpenColorPicker?: () => void;
 };
 
 export function PaletteSelector({
   selectedPalette,
   onPaletteChange,
   customPalettes = [],
-  onCustomPaletteCreate,
   onCustomPaletteDelete,
+  onOpenColorPicker,
 }: PaletteSelectorProps) {
   const allPalettes = [...colorPalettes, ...customPalettes];
-
-  const handleCreatePalette = (palette: { name: string; colors: string[] }) => {
-    const newPalette: ColorPalette = {
-      id: `custom-${Date.now()}`,
-      name: palette.name,
-      colors: palette.colors,
-      isCustom: true,
-    };
-    onCustomPaletteCreate?.(newPalette);
-    onPaletteChange(newPalette.id);
-  };
 
   return (
     <Animated.View
@@ -47,7 +36,7 @@ export function PaletteSelector({
       </View>
       <ScrollView horizontal showsHorizontalScrollIndicator={false}>
         {/* Custom Palette Creator */}
-        <ColorPickerDialog onCreatePalette={handleCreatePalette} />
+        <ColorPickerTrigger onPress={() => onOpenColorPicker?.()} />
 
         {/* Custom Palettes First */}
         {customPalettes.map((palette) => (
