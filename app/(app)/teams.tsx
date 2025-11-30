@@ -278,16 +278,9 @@ export default function TeamsPage() {
         className="overflow-hidden rounded-xl border border-border bg-card"
         onPress={() => handleTeamPress(item.id)}
       >
-        <View
-          className="h-24 items-center justify-center"
-          style={{ backgroundColor: item.primaryColor }}
-        >
-          <View
-            className="absolute top-0 right-0 bottom-0 w-1/3"
-            style={{ backgroundColor: item.secondaryColor }}
-          />
+        <View className="h-24 items-center justify-center bg-secondary/50">
           <Image
-            className="z-10 h-16 w-16"
+            className="h-16 w-16"
             resizeMode="contain"
             source={item.logo}
           />

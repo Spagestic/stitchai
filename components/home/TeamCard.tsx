@@ -23,35 +23,12 @@ export const TeamCard = ({ team, onPress, width }: TeamCardProps) => (
     onPress={() => onPress(team.id)}
     style={{ width }}
   >
-    <View
-      className="mb-2 h-20 items-center justify-center overflow-hidden rounded-xl border border-border"
-      style={{
-        backgroundColor: team.primaryColor,
-      }}
-    >
-      {/* Gradient/color background */}
-      <View
-        className="absolute top-0 right-0 bottom-0 w-1/3"
-        style={{ backgroundColor: team.secondaryColor }}
-      />
-
-      {/* Team logo overlay */}
+    <View className="mb-2 h-20 items-center justify-center overflow-hidden rounded-xl border border-border bg-card">
+      {/* Team logo */}
       {team.logo ? (
-        <Image
-          className="z-10 h-12 w-12"
-          resizeMode="contain"
-          source={team.logo}
-        />
+        <Image className="h-12 w-12" resizeMode="contain" source={team.logo} />
       ) : (
-        <Text
-          className="z-10 px-2 text-center font-bold text-sm"
-          style={{
-            color:
-              team.primaryColor === "#FFFFFF" || team.primaryColor === "#FBE122"
-                ? "#000"
-                : "#fff",
-          }}
-        >
+        <Text className="px-2 text-center font-bold text-foreground text-sm">
           {team.name}
         </Text>
       )}
