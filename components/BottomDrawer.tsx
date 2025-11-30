@@ -25,15 +25,17 @@ type BottomDrawerProps = {
 
 interface BottomDrawerWithRefProps extends BottomDrawerProps {
   refProp?: React.Ref<BottomDrawerRef>;
+  drawerHeight?: number;
 }
 
 function BottomDrawerComponent({
+  drawerHeight = DRAWER_HEIGHT,
   children,
   onClose,
   refProp,
 }: BottomDrawerWithRefProps) {
   const insets = useSafeAreaInsets();
-  const translateY = useSharedValue(DRAWER_HEIGHT + insets.bottom);
+  const translateY = useSharedValue(drawerHeight + insets.bottom);
   const isOpen = useSharedValue(false);
   const overlayOpacity = useSharedValue(0);
 
@@ -58,7 +60,7 @@ function BottomDrawerComponent({
     (closing) => {
       if (
         closing &&
-        translateY.value >= DRAWER_HEIGHT * 0.9 + insets.bottom * 0.9
+        translateY.value >= drawerHeight * 0.9 + insets.bottom * 0.9
       ) {
         isClosing.value = false;
         if (pendingOnClose.current) {
@@ -73,11 +75,18 @@ function BottomDrawerComponent({
     isOpen.value = false;
     isClosing.value = true;
     overlayOpacity.value = withTiming(0, { duration: 200 });
-    translateY.value = withSpring(DRAWER_HEIGHT + insets.bottom, {
+    translateY.value = withSpring(drawerHeight + insets.bottom, {
       damping: 20,
       stiffness: 150,
     });
-  }, [isOpen, isClosing, overlayOpacity, translateY, insets.bottom]);
+  }, [
+    isOpen,
+    isClosing,
+    overlayOpacity,
+    translateY,
+    insets.bottom,
+    drawerHeight,
+  ]);
 
   useImperativeHandle(refProp, () => ({
     open,
@@ -91,7 +100,7 @@ function BottomDrawerComponent({
       }
     })
     .onEnd((event) => {
-      if (event.translationY > DRAWER_HEIGHT / 3 || event.velocityY > 500) {
+      if (event.translationY > drawerHeight / 3 || event.velocityY > 500) {
         close();
       } else {
         translateY.value = withSpring(0, {
@@ -123,6 +132,7 @@ function BottomDrawerComponent({
           className="border-border border-t bg-background"
           style={[
             styles.drawer,
+            { height: drawerHeight },
             animatedStyle,
             { paddingBottom: insets.bottom + 16 },
           ]}
@@ -139,7 +149,10 @@ function BottomDrawerComponent({
 
 // Usage: <BottomDrawer refProp={ref} ... />
 const BottomDrawer = (
-  props: BottomDrawerProps & { refProp?: React.Ref<BottomDrawerRef> }
+  props: BottomDrawerProps & {
+    refProp?: React.Ref<BottomDrawerRef>;
+    drawerHeight?: number;
+  }
 ) => <BottomDrawerComponent {...props} />;
 
 const styles = StyleSheet.create({
@@ -152,7 +165,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    height: DRAWER_HEIGHT,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     borderBottomWidth: 0,
