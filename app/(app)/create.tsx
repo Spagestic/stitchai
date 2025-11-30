@@ -1,6 +1,11 @@
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { ScrollView, View } from "react-native";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  View,
+} from "react-native";
 import { CreateHeader } from "@/components/create/CreateHeader";
 import { GenerateButton } from "@/components/create/GenerateButton";
 import { PaletteSelector } from "@/components/create/PaletteSelector";
@@ -46,7 +51,10 @@ export default function CreatePage() {
   };
 
   return (
-    <View className="flex-1 bg-background">
+    <KeyboardAvoidingView
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      className="flex-1 bg-background"
+    >
       <CreateHeader />
 
       <ScrollView
@@ -54,6 +62,11 @@ export default function CreatePage() {
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
+        {/* Dummy Preview placeholder */}
+        <View className="px-4">
+          <View className="mb-4 aspect-square w-full rounded-lg bg-muted" />
+        </View>
+
         <StyleSelector
           onStyleChange={setSelectedStyle}
           selectedStyle={selectedStyle}
@@ -91,6 +104,6 @@ export default function CreatePage() {
         isGenerating={isGenerating}
         onPress={handleGenerate}
       />
-    </View>
+    </KeyboardAvoidingView>
   );
 }
