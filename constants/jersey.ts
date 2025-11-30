@@ -61,7 +61,32 @@ export const colorPalettes = [
   { id: "forest", name: "Forest", colors: ["#2D5A27", "#52B788", "#95D5B2"] },
   { id: "royal", name: "Royal", colors: ["#5E548E", "#9F86C0", "#BE95C4"] },
   { id: "neon", name: "Neon", colors: ["#FF00FF", "#00FFFF", "#39FF14"] },
+  {
+    id: "midnight",
+    name: "Midnight",
+    colors: ["#0D1B2A", "#1B263B", "#415A77"],
+  },
+  { id: "cherry", name: "Cherry", colors: ["#590D22", "#A4133C", "#FF4D6D"] },
+  { id: "gold", name: "Gold", colors: ["#FFD700", "#FFC300", "#F4A261"] },
+  { id: "arctic", name: "Arctic", colors: ["#CAF0F8", "#ADE8F4", "#48CAE4"] },
+  { id: "earth", name: "Earth", colors: ["#774936", "#A68A64", "#E6CCB2"] },
+  { id: "candy", name: "Candy", colors: ["#FF69B4", "#FF1493", "#FFB6C1"] },
+  { id: "vintage", name: "Vintage", colors: ["#8B4513", "#D2691E", "#F4A460"] },
+  { id: "cyber", name: "Cyber", colors: ["#00FF41", "#008F11", "#003B00"] },
+  {
+    id: "lavender",
+    name: "Lavender",
+    colors: ["#E6E6FA", "#D8BFD8", "#DDA0DD"],
+  },
+  { id: "fire", name: "Fire", colors: ["#FF0000", "#FF4500", "#FF8C00"] },
 ];
+
+export type ColorPalette = {
+  id: string;
+  name: string;
+  colors: string[];
+  isCustom?: boolean;
+};
 
 // Jersey style options
 export const jerseyStyles = [
