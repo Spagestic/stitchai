@@ -1,4 +1,5 @@
-import { Plus } from "lucide-react-native";
+import { useRouter } from "expo-router";
+import { ChevronRight, Plus } from "lucide-react-native";
 import type { ImageSourcePropType } from "react-native";
 import { Pressable, ScrollView, View } from "react-native";
 import { Text } from "@/components/ui/text";
@@ -26,9 +27,15 @@ export const PopularTeams = ({
   onTeamPress,
   onCustomTeamPress,
 }: PopularTeamsProps) => {
+  const router = useRouter();
+
+  const handleViewAll = () => {
+    router.push("/teams");
+  };
+
   return (
     <View className="px-4 pt-2">
-      <View className="py-2">
+      <View className="flex-row items-center justify-between py-2">
         <Text
           className={
             "font-semibold text-muted-foreground text-xs uppercase tracking-wide"
@@ -36,6 +43,13 @@ export const PopularTeams = ({
         >
           Popular Teams
         </Text>
+        <Pressable
+          className="flex-row items-center gap-1"
+          onPress={handleViewAll}
+        >
+          <Text className="text-primary text-xs">View All</Text>
+          <ChevronRight className="text-primary" size={14} />
+        </Pressable>
       </View>
       <ScrollView
         className="pb-2"
