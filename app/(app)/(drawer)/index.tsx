@@ -80,24 +80,28 @@ const communityCreations = [
     source: require("@/assets/images/jerseys/black_jersey.png"),
     name: "Midnight Edition",
     creator: "Alex",
+    tags: ["Modern", "Bold"],
   },
   {
     id: 2,
     source: require("@/assets/images/jerseys/Classic_red_and_whit.png"),
     name: "Classic Red",
     creator: "Maria",
+    tags: ["Classic"],
   },
   {
     id: 3,
     source: require("@/assets/images/jerseys/Modern_blue_gradient.png"),
     name: "Ocean Wave",
     creator: "João",
+    tags: ["Modern"],
   },
   {
     id: 4,
     source: require("@/assets/images/jerseys/Retro_90s_style_jers.png"),
     name: "Retro Vibes",
     creator: "Carlos",
+    tags: ["Retro", "Bold"],
   },
 ];
 

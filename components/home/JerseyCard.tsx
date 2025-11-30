@@ -11,6 +11,7 @@ type Jersey = {
   name: string;
   creator: string;
   creatorImage?: number | { uri: string };
+  tags?: string[];
 };
 
 type JerseyCardProps = {
@@ -26,6 +27,8 @@ export const JerseyCard = ({
   avatarSource,
   onPress,
 }: JerseyCardProps) => {
+  const hasTags = jersey.tags && jersey.tags.length > 0;
+
   return (
     <Pressable
       className="relative flex-1 overflow-hidden rounded-3xl"
@@ -60,8 +63,9 @@ export const JerseyCard = ({
         }}
       />
 
-      {/* Top Left - Creator Info */}
-      <View className="absolute top-4 left-4 z-10">
+      {/* Top Header */}
+      <View className="absolute top-4 right-4 left-4 z-10 flex-row items-center justify-between">
+        {/* Left */}
         <View className="flex-row items-center gap-2">
           <Avatar
             alt={`${jersey.creator}'s avatar`}
@@ -69,28 +73,38 @@ export const JerseyCard = ({
           >
             <AvatarImage source={avatarSource} />
             <AvatarFallback className="text-center">
-              <Text className="font-normal text-muted-foreground text-xs">
+              <Text
+                className="font-normal text-muted-foreground"
+                style={{ fontSize: 10, lineHeight: 16 }}
+              >
                 {getInitials(jersey.creator)}
               </Text>
             </AvatarFallback>
           </Avatar>
-          <Text className="font-medium text-secondary">{jersey.creator}</Text>
+          <Text className="font-medium text-secondary text-xs">
+            {jersey.creator}
+          </Text>
         </View>
-      </View>
-
-      {/* Top Right - Bookmark Button */}
-      <View className="absolute top-4 right-4 z-10">
-        <Pressable className="rounded-full bg-background/20 p-2">
-          <Bookmark color="white" size={16} strokeWidth={1.5} />
+        {/* Right */}
+        <Pressable className="rounded-full bg-background/40 p-2">
+          <Bookmark color="white" size={16} strokeWidth={2} />
         </Pressable>
       </View>
 
       {/* Bottom - Jersey Info */}
       <View className="absolute right-4 bottom-4 left-4 z-10">
-        <View className="">
+        <View className="flex flex-col gap-0">
           <Text className="font-normal text-accent text-sm leading-relaxed">
             {jersey.name}
           </Text>
+          {hasTags ? (
+            <Text
+              className="font-normal text-muted/80"
+              style={{ fontSize: 10 }}
+            >
+              {jersey.tags?.join(" • ")}
+            </Text>
+          ) : null}
         </View>
       </View>
     </Pressable>
