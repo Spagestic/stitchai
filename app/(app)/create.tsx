@@ -1,14 +1,9 @@
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import {
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  View,
-} from "react-native";
+import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
 import { CreateHeader } from "@/components/create/CreateHeader";
+import { PaletteSelector } from "@/components/create/color/PaletteSelector";
 import { GenerateButton } from "@/components/create/GenerateButton";
-import { PaletteSelector } from "@/components/create/PaletteSelector";
 import { PersonalizationFields } from "@/components/create/PersonalizationFields";
 import { PreviewSection } from "@/components/create/PreviewSection";
 import { PromptSection } from "@/components/create/PromptSection";

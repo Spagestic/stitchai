@@ -1,7 +1,7 @@
 import { Palette, X } from "lucide-react-native";
 import { Pressable, ScrollView, View } from "react-native";
 import Animated, { FadeIn, FadeInDown, FadeOut } from "react-native-reanimated";
-import { ColorPickerDialog } from "@/components/create/ColorPickerDialog";
+import { ColorPickerDialog } from "@/components/create/color/ColorPickerDialog";
 import { Text } from "@/components/ui/text";
 import { type ColorPalette, colorPalettes } from "@/constants/jersey";
 
