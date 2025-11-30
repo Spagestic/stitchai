@@ -8,7 +8,9 @@ import { PersonalizationFields } from "@/components/create/PersonalizationFields
 import { PreviewSection } from "@/components/create/PreviewSection";
 import { PromptSection } from "@/components/create/PromptSection";
 import { StyleSelector } from "@/components/create/StyleSelector";
+import { TeamLogoSelector } from "@/components/create/team/TeamLogoSelector";
 import { teamData } from "@/constants/jersey";
+import type { Team } from "@/constants/teams";
 
 export default function CreatePage() {
   const { team, prompt: initialPrompt } = useLocalSearchParams<{
@@ -20,6 +22,7 @@ export default function CreatePage() {
   const [prompt, setPrompt] = useState(initialPrompt || "");
   const [selectedPalette, setSelectedPalette] = useState<string | null>(null);
   const [selectedStyle, setSelectedStyle] = useState<string | null>(null);
+  const [selectedTeam, setSelectedTeam] = useState<Team | null>(null);
   const [playerName, setPlayerName] = useState("");
   const [playerNumber, setPlayerNumber] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
@@ -65,6 +68,11 @@ export default function CreatePage() {
         <StyleSelector
           onStyleChange={setSelectedStyle}
           selectedStyle={selectedStyle}
+        />
+
+        <TeamLogoSelector
+          onTeamChange={setSelectedTeam}
+          selectedTeam={selectedTeam}
         />
 
         <PaletteSelector
