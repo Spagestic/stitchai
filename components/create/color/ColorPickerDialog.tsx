@@ -215,6 +215,7 @@ export function ColorPickerContent({
                 : "#CCCCCC",
             }}
           />
+          {/* TODO: Open color picker dialog when clicked on */}
           <Button
             disabled={
               !HEX_COLOR_REGEX.test(customColor) || selectedColors.length >= 5
