@@ -62,15 +62,12 @@ export const allTeams: Team[] = [
   ...ukrainePremierLiga,
 ];
 
-export const leagues = [
-  "All",
-  "Premier League",
-  "La Liga",
-  "Bundesliga",
-  "Serie A",
-  "Ligue 1",
-  "Liga Portugal",
-] as const;
+// Dynamically extract unique leagues from all teams
+const uniqueLeagues = Array.from(
+  new Set(allTeams.map((team) => team.league))
+).sort();
+
+export const leagues = ["All", ...uniqueLeagues] as const;
 
 export const popularTeams: Team[] = [
   allTeams.find((t) => t.id === "real-madrid") ?? allTeams[0],
