@@ -1,5 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
-import { ActivityIndicator, View } from "react-native";
+import {
+  ActivityIndicator,
+  KeyboardAvoidingView,
+  Platform,
+  View,
+} from "react-native";
 import {
   DialogContent,
   DialogDescription,
@@ -78,30 +83,40 @@ export function TeamLogoDialogContent({
   }, [isLoadingMore]);
 
   return (
-    <DialogContent className="h-[80%] max-h-[600px]">
-      <DialogHeader>
-        <DialogTitle>Select Team Logo</DialogTitle>
-        <DialogDescription>
-          Choose a team logo to include on your jersey
-        </DialogDescription>
-      </DialogHeader>
+    <DialogContent className="max-h-[85vh] flex-1">
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+        className="flex-1"
+      >
+        <DialogHeader>
+          <DialogTitle>Select Team Logo</DialogTitle>
+          <DialogDescription>
+            Choose a team logo to include on your jersey
+          </DialogDescription>
+        </DialogHeader>
 
-      <TeamSearchInput onChangeText={handleSearchChange} value={searchQuery} />
+        <TeamSearchInput
+          onChangeText={handleSearchChange}
+          value={searchQuery}
+        />
 
-      <TeamsGrid
-        onEndReached={loadMoreItems}
-        onSelectTeam={onSelectTeam}
-        selectedTeamId={selectedTeamId}
-        teams={displayedTeams}
-      />
+        <View className="flex-1">
+          <TeamsGrid
+            onEndReached={loadMoreItems}
+            onSelectTeam={onSelectTeam}
+            selectedTeamId={selectedTeamId}
+            teams={displayedTeams}
+          />
+        </View>
 
-      {renderLoadingFooter()}
+        {renderLoadingFooter()}
 
-      <View className="border-border border-b pt-3">
-        <Text className="text-center text-muted-foreground text-xs">
-          Showing {displayedTeams.length} of {totalTeams} teams
-        </Text>
-      </View>
+        <View className="border-border border-b pt-3">
+          <Text className="text-center text-muted-foreground text-xs">
+            Showing {displayedTeams.length} of {totalTeams} teams
+          </Text>
+        </View>
+      </KeyboardAvoidingView>
     </DialogContent>
   );
 }
