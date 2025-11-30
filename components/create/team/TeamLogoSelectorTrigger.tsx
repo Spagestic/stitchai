@@ -30,16 +30,22 @@ export function TeamLogoSelectorTrigger({
     <Dialog onOpenChange={onOpenChange} open={isOpen}>
       <DialogTrigger asChild>
         <Pressable className="flex-1 flex-row items-center gap-3 rounded-xl border-2 border-border border-dashed p-4">
-          <View className="size-12 items-center justify-center rounded-lg bg-muted">
-            <Shield className="text-muted-foreground" size={24} />
-          </View>
-          <View>
-            <Text className="font-medium text-muted-foreground">
-              Select a team logo
-            </Text>
-            <Text className="text-muted-foreground text-xs">
-              Browse {allTeams.length} teams from {leagues.length - 1} leagues
-            </Text>
+          <View className="flex-row justify-between">
+            <View className="flex-row">
+              <View className="size-12 items-center justify-center rounded-lg bg-muted">
+                <Shield className="text-muted-foreground" size={24} />
+              </View>
+              <View className="ml-3">
+                <Text className="font-medium text-muted-foreground">
+                  Select a team logo
+                </Text>
+                <Text className="text-muted-foreground text-xs">
+                  Browse {allTeams.length} teams from {leagues.length - 1}{" "}
+                  leagues
+                </Text>
+              </View>
+            </View>
+            <View className="flex-1" />
           </View>
         </Pressable>
       </DialogTrigger>
