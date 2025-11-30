@@ -1,7 +1,13 @@
 import { useRouter } from "expo-router";
 import { Plus } from "lucide-react-native";
 import { useEffect, useState } from "react";
-import { Keyboard, ScrollView, TouchableOpacity, View } from "react-native";
+import {
+  Keyboard,
+  ScrollView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { CommunityCreations } from "@/components/home/CommunityCreations";
 import { HomeSkeleton } from "@/components/home/HomeSkeleton";
 import { PopularTeams } from "@/components/home/PopularTeams";
@@ -166,10 +172,13 @@ export default function Page() {
       </ScrollView>
       {!isKeyboardVisible && (
         <TouchableOpacity
-          className="absolute right-6 bottom-6 h-14 w-14 items-center justify-center rounded-full bg-primary shadow-lg"
+          className="absolute right-6 bottom-6 h-14 w-28 items-center justify-center rounded-full bg-primary shadow-lg"
           onPress={handleCreatePress}
         >
-          <Plus color="#fff" size={24} />
+          <View className="flex flex-row items-center justify-center gap-1">
+            <Plus color="#fff" size={24} />
+            <Text className="font-medium text-primary-foreground">Create</Text>
+          </View>
         </TouchableOpacity>
       )}
     </View>
