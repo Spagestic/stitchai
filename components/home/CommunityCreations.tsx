@@ -48,8 +48,14 @@ export const CommunityCreations = ({
 
   return (
     <View className="p-4 pb-24">
-      <View className="mb-4 flex-row items-center justify-between">
-        <Text className="font-bold text-lg">Get Inspired</Text>
+      <View className="py-2">
+        <Text
+          className={
+            "font-semibold text-muted-foreground text-xs uppercase tracking-wide"
+          }
+        >
+          Get Inspired
+        </Text>
       </View>
       <View className="gap-4">
         {Array.from({ length: Math.ceil(jerseys.length / 2) }).map(

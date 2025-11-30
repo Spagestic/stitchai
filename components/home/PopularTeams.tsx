@@ -25,7 +25,15 @@ export const PopularTeams = ({
 }: PopularTeamsProps) => {
   return (
     <View className="px-4 pt-2">
-      <Text className="mb-4 font-bold text-lg">Popular Teams</Text>
+      <View className="py-2">
+        <Text
+          className={
+            "font-semibold text-muted-foreground text-xs uppercase tracking-wide"
+          }
+        >
+          Popular Teams
+        </Text>
+      </View>
       <ScrollView
         className="pb-2"
         horizontal
