@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240">
+  <!-- Main jersey body -->
+  <path 
+    fill="currentColor" 
+    d="M40 60 L20 80 L20 220 L80 220 L80 200 L120 200 L120 220 L180 220 L180 80 L160 60 L140 40 L130 50 L100 60 L70 50 L60 40 Z"
+  />
+  
+  <!-- Left sleeve -->
+  <path 
+    fill="currentColor" 
+    d="M40 60 L10 90 L10 140 L20 150 L20 80 L40 60 Z"
+  />
+  
+  <!-- Right sleeve -->
+  <path 
+    fill="currentColor" 
+    d="M160 60 L190 90 L190 140 L180 150 L180 80 L160 60 Z"
+  />
+  
+  <!-- Collar (using secondary color via stroke) -->
+  <path 
+    fill="none" 
+    stroke="currentColor"
+    stroke-width="4"
+    d="M60 40 L70 50 L100 60 L130 50 L140 40"
+  />
+  
+  <!-- Neckline -->
+  <ellipse 
+    cx="100" 
+    cy="55" 
+    rx="20" 
+    ry="15" 
+    fill="#1a1a1a"
+  />
+</svg>

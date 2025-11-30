@@ -1,7 +1,7 @@
-import { Image as ExpoImage } from "expo-image";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
+import JerseyIcon from "@/assets/jersey.svg";
 import BottomDrawer, { type BottomDrawerRef } from "@/components/BottomDrawer";
 import { CreateHeader } from "@/components/create/CreateHeader";
 import { ColorPickerContent } from "@/components/create/color/ColorPickerDialog";
@@ -13,7 +13,7 @@ import { PromptSection } from "@/components/create/PromptSection";
 import { StyleSelector } from "@/components/create/StyleSelector";
 import { TeamLogoSelector } from "@/components/create/team/TeamLogoSelector";
 import type { ColorPalette } from "@/constants/jersey";
-import { teamData } from "@/constants/jersey";
+import { colorPalettes, teamData } from "@/constants/jersey";
 import type { Team } from "@/constants/teams";
 
 export default function CreatePage() {
@@ -82,6 +82,24 @@ export default function CreatePage() {
     }
   };
 
+  // Get the current jersey color based on selected palette
+  const getJerseyColor = (): string => {
+    // Check custom palettes first
+    const customPalette = customPalettes.find((p) => p.id === selectedPalette);
+    if (customPalette) {
+      return customPalette.colors[0];
+    }
+
+    // Check built-in palettes
+    const builtInPalette = colorPalettes.find((p) => p.id === selectedPalette);
+    if (builtInPalette) {
+      return builtInPalette.colors[0];
+    }
+
+    // Default color
+    return "#1a1a1a";
+  };
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -96,12 +114,8 @@ export default function CreatePage() {
       >
         {/* Jersey Preview */}
         <View className="mb-4 px-4">
-          <View className="aspect-square w-full overflow-hidden rounded-lg bg-muted">
-            <ExpoImage
-              contentFit="contain"
-              source={require("@/assets/black-shirt.svg")}
-              style={{ width: "100%", height: "100%" }}
-            />
+          <View className="aspect-square w-full items-center justify-center overflow-hidden rounded-lg bg-muted">
+            <JerseyIcon color={getJerseyColor()} height={280} width={280} />
           </View>
         </View>
 
