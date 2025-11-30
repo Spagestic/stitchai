@@ -12,7 +12,7 @@ import { PromptSection } from "@/components/create/PromptSection";
 import { StyleSelector } from "@/components/create/StyleSelector";
 import { TeamLogoSelector } from "@/components/create/team/TeamLogoSelector";
 import type { ColorPalette } from "@/constants/jersey";
-import { teamData } from "@/constants/jersey";
+import { colorPalettes, jerseyStyles, teamData } from "@/constants/jersey";
 import type { Team } from "@/constants/teams";
 
 export default function CreatePage() {
@@ -45,6 +45,53 @@ export default function CreatePage() {
       );
     }
   }, [team]);
+
+  const getRandomItem = <T,>(array: T[]): T =>
+    array[Math.floor(Math.random() * array.length)];
+
+  const handleRandomize = () => {
+    // Randomize style
+    const randomStyle = getRandomItem(jerseyStyles);
+    setSelectedStyle(randomStyle.id);
+
+    // Randomize color palette
+    const randomPalette = getRandomItem(colorPalettes);
+    setSelectedPalette(randomPalette.id);
+
+    // Randomize player name
+    const playerNames = [
+      "RONALDO",
+      "MESSI",
+      "NEYMAR",
+      "MBAPPE",
+      "HAALAND",
+      "VINICIUS",
+      "SALAH",
+      "BENZEMA",
+      "LEWANDOWSKI",
+      "KANE",
+    ];
+    setPlayerName(getRandomItem(playerNames));
+
+    // Randomize player number
+    const randomNumber = String(Math.floor(Math.random() * 99) + 1);
+    setPlayerNumber(randomNumber);
+
+    // Randomize prompt
+    const prompts = [
+      "A sleek modern football jersey with geometric patterns",
+      "A classic retro-inspired jersey with vintage vibes",
+      "A bold and vibrant football kit with striking design",
+      "A minimalist football jersey with elegant simplicity",
+      "A gradient-filled jersey with smooth color transitions",
+      "A futuristic football uniform with tech-inspired elements",
+      "A traditional jersey with timeless classic design",
+      "An abstract art-inspired football kit",
+      "A nature-inspired jersey with organic patterns",
+      "A luxury premium football jersey with premium details",
+    ];
+    setPrompt(getRandomItem(prompts));
+  };
 
   const handleGenerate = async () => {
     setIsGenerating(true);
@@ -87,7 +134,7 @@ export default function CreatePage() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       className="flex-1 bg-background"
     >
-      <CreateHeader />
+      <CreateHeader onRandomize={handleRandomize} />
 
       <ScrollView
         automaticallyAdjustKeyboardInsets

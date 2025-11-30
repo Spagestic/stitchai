@@ -1,12 +1,17 @@
 import { Ionicons } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
+import { Repeat } from "lucide-react-native";
 import { useColorScheme } from "nativewind";
-import { Pressable, View } from "react-native";
+import { Pressable } from "react-native";
 import Animated, { FadeIn } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Text } from "@/components/ui/text";
 
-export function CreateHeader() {
+type CreateHeaderProps = {
+  onRandomize?: () => void;
+};
+
+export function CreateHeader({ onRandomize }: CreateHeaderProps) {
   const router = useRouter();
   const { colorScheme } = useColorScheme();
   const insets = useSafeAreaInsets();
@@ -29,7 +34,12 @@ export function CreateHeader() {
         />
       </Pressable>
       <Text className="font-bold text-xl">Create Jersey</Text>
-      <View className="size-10" />
+      <Pressable
+        className="size-10 items-center justify-center rounded-full bg-secondary"
+        onPress={onRandomize}
+      >
+        <Repeat color={isDark ? "#fff" : "#000"} size={20} />
+      </Pressable>
     </Animated.View>
   );
 }
