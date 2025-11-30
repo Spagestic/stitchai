@@ -40,6 +40,7 @@ export function TeamLogoSelector({
     onTeamChange(team);
     setIsOpen(false);
     setSearchQuery("");
+    setSelectedLeague("All");
   };
 
   const handleClearSelection = () => {

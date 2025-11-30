@@ -1,4 +1,5 @@
-import { View } from "react-native";
+import { useCallback, useEffect, useState } from "react";
+import { ActivityIndicator, View } from "react-native";
 import {
   DialogContent,
   DialogDescription,
@@ -9,6 +10,8 @@ import { Text } from "@/components/ui/text";
 import type { Team } from "@/constants/teams";
 import { TeamSearchInput } from "./TeamSearchInput";
 import { TeamsGrid } from "./TeamsGrid";
+
+const PAGE_SIZE = 12;
 
 type TeamLogoDialogContentProps = {
   leagues: string[];
@@ -30,6 +33,50 @@ export function TeamLogoDialogContent({
   onSelectTeam,
   totalTeams,
 }: TeamLogoDialogContentProps) {
+  const [displayedCount, setDisplayedCount] = useState(PAGE_SIZE);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
+
+  // Reset pagination when search changes
+  useEffect(() => {
+    setDisplayedCount(PAGE_SIZE);
+  }, []);
+
+  const displayedTeams = filteredTeams.slice(0, displayedCount);
+  const hasMoreItems = displayedCount < filteredTeams.length;
+
+  const handleSearchChange = useCallback(
+    (text: string) => {
+      onSearchChange(text);
+      setDisplayedCount(PAGE_SIZE);
+    },
+    [onSearchChange]
+  );
+
+  const loadMoreItems = useCallback(() => {
+    if (isLoadingMore || !hasMoreItems) {
+      return;
+    }
+
+    setIsLoadingMore(true);
+    setTimeout(() => {
+      setDisplayedCount((prev) =>
+        Math.min(prev + PAGE_SIZE, filteredTeams.length)
+      );
+      setIsLoadingMore(false);
+    }, 100);
+  }, [isLoadingMore, hasMoreItems, filteredTeams.length]);
+
+  const renderLoadingFooter = useCallback(() => {
+    if (!isLoadingMore) {
+      return null;
+    }
+    return (
+      <View className="items-center py-3">
+        <ActivityIndicator size="small" />
+      </View>
+    );
+  }, [isLoadingMore]);
+
   return (
     <DialogContent className="h-[80%] max-h-[600px]">
       <DialogHeader>
@@ -39,17 +86,20 @@ export function TeamLogoDialogContent({
         </DialogDescription>
       </DialogHeader>
 
-      <TeamSearchInput onChangeText={onSearchChange} value={searchQuery} />
+      <TeamSearchInput onChangeText={handleSearchChange} value={searchQuery} />
 
       <TeamsGrid
+        onEndReached={loadMoreItems}
         onSelectTeam={onSelectTeam}
         selectedTeamId={selectedTeamId}
-        teams={filteredTeams}
+        teams={displayedTeams}
       />
 
-      <View className="border-border border-t pt-3">
+      {renderLoadingFooter()}
+
+      <View className="border-border border-b pt-3">
         <Text className="text-center text-muted-foreground text-xs">
-          Showing {filteredTeams.length} of {totalTeams} teams
+          Showing {displayedTeams.length} of {totalTeams} teams
         </Text>
       </View>
     </DialogContent>

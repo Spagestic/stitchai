@@ -1,4 +1,4 @@
-import { Image, Pressable, ScrollView, View } from "react-native";
+import { FlatList, Image, Pressable, View } from "react-native";
 import { Text } from "@/components/ui/text";
 import type { Team } from "@/constants/teams";
 
@@ -6,12 +6,16 @@ type TeamsGridProps = {
   teams: Team[];
   selectedTeamId?: string;
   onSelectTeam: (team: Team) => void;
+  onEndReached?: () => void;
 };
+
+const ITEMS_PER_ROW = 3;
 
 export function TeamsGrid({
   teams,
   selectedTeamId,
   onSelectTeam,
+  onEndReached,
 }: TeamsGridProps) {
   if (teams.length === 0) {
     return (
@@ -21,30 +25,43 @@ export function TeamsGrid({
     );
   }
 
+  const renderTeamItem = ({ item }: { item: Team }) => (
+    <View className="w-1/3 p-1">
+      <Pressable
+        className={`items-center rounded-lg border p-2 ${
+          selectedTeamId === item.id
+            ? "border-primary bg-primary/10"
+            : "border-border"
+        }`}
+        onPress={() => onSelectTeam(item)}
+      >
+        <Image
+          className="size-12 rounded"
+          resizeMode="contain"
+          source={item.logo}
+        />
+        <Text className="mt-1 text-center text-xs" numberOfLines={2}>
+          {item.name}
+        </Text>
+      </Pressable>
+    </View>
+  );
+
   return (
-    <ScrollView className="flex-1" showsVerticalScrollIndicator={false}>
-      <View className="flex-row flex-wrap gap-2">
-        {teams.map((team) => (
-          <Pressable
-            className={`w-[30%] items-center rounded-lg border p-2 ${
-              selectedTeamId === team.id
-                ? "border-primary bg-primary/10"
-                : "border-border"
-            }`}
-            key={team.id}
-            onPress={() => onSelectTeam(team)}
-          >
-            <Image
-              className="size-12 rounded"
-              resizeMode="contain"
-              source={team.logo}
-            />
-            <Text className="mt-1 text-center text-xs" numberOfLines={2}>
-              {team.name}
-            </Text>
-          </Pressable>
-        ))}
-      </View>
-    </ScrollView>
+    <FlatList
+      className="flex-1"
+      columnWrapperStyle={{ justifyContent: "space-between" }}
+      data={teams}
+      initialNumToRender={12}
+      keyExtractor={(item) => item.id}
+      maxToRenderPerBatch={9}
+      numColumns={ITEMS_PER_ROW}
+      onEndReached={onEndReached}
+      onEndReachedThreshold={0.5}
+      renderItem={renderTeamItem}
+      scrollEnabled={true}
+      showsVerticalScrollIndicator={false}
+      windowSize={5}
+    />
   );
 }
