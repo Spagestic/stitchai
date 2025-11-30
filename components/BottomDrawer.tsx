@@ -11,7 +11,7 @@ import Animated, {
 } from "react-native-reanimated";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-const DRAWER_HEIGHT = 350;
+const DRAWER_HEIGHT = 520;
 
 export type BottomDrawerRef = {
   open: () => void;
