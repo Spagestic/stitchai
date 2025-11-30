@@ -9,11 +9,20 @@ import { useColorScheme } from "nativewind";
 import { useEffect } from "react";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import {
+  configureReanimatedLogger,
+  ReanimatedLogLevel,
+} from "react-native-reanimated";
+import {
   initialWindowMetrics,
   SafeAreaProvider,
 } from "react-native-safe-area-context";
 import { AuthProvider } from "@/context/AuthContext";
 import { NAV_THEME } from "@/lib/theme";
+
+configureReanimatedLogger({
+  level: ReanimatedLogLevel.warn,
+  strict: false, // disable strict mode warnings
+});
 
 export default function RootLayout() {
   const { colorScheme, setColorScheme } = useColorScheme();
