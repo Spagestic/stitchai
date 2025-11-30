@@ -1,3 +1,4 @@
+import { Image as ExpoImage } from "expo-image";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useRef, useState } from "react";
 import { KeyboardAvoidingView, Platform, ScrollView, View } from "react-native";
@@ -93,9 +94,15 @@ export default function CreatePage() {
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
-        {/* Dummy Preview placeholder */}
-        <View className="px-4">
-          <View className="mb-4 aspect-square w-full rounded-lg bg-muted" />
+        {/* Jersey Preview */}
+        <View className="mb-4 px-4">
+          <View className="aspect-square w-full overflow-hidden rounded-lg bg-muted">
+            <ExpoImage
+              contentFit="contain"
+              source={require("@/assets/black-shirt.svg")}
+              style={{ width: "100%", height: "100%" }}
+            />
+          </View>
         </View>
 
         <StyleSelector
