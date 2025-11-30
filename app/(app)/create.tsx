@@ -23,6 +23,7 @@ export default function CreatePage() {
 
   // Refs
   const colorPickerDrawerRef = useRef<BottomDrawerRef>(null);
+  const previewDrawerRef = useRef<BottomDrawerRef>(null);
   const scrollViewRef = useRef<ScrollView>(null);
 
   // Form state
@@ -33,7 +34,6 @@ export default function CreatePage() {
   const [playerName, setPlayerName] = useState("");
   const [playerNumber, setPlayerNumber] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
-  const [generatedImage, setGeneratedImage] = useState<string | null>(null);
   const [customPalettes, setCustomPalettes] = useState<ColorPalette[]>([]);
 
   // Pre-fill based on team selection
@@ -99,8 +99,8 @@ export default function CreatePage() {
     // For now, simulate generation
     await new Promise((resolve) => setTimeout(resolve, 2000));
     setIsGenerating(false);
-    // In production, this would be the generated image URL
-    setGeneratedImage("generated");
+    // In production, this would open the drawer with the generated image URL
+    previewDrawerRef.current?.open();
   };
 
   const handleOpenColorPicker = () => {
@@ -170,15 +170,6 @@ export default function CreatePage() {
 
         <PromptSection onPromptChange={setPrompt} prompt={prompt} />
 
-        {typeof generatedImage === "string" && generatedImage.trim() !== "" && (
-          <PreviewSection
-            onRegenerate={() => setGeneratedImage(null)}
-            onSave={() => {
-              // TODO: Implement save functionality
-            }}
-          />
-        )}
-
         {/* Spacer for bottom button */}
         <View className="h-32" />
       </ScrollView>
@@ -194,6 +185,20 @@ export default function CreatePage() {
         <ColorPickerContent
           onClose={handleCloseColorPicker}
           onCreatePalette={handleCreatePalette}
+        />
+      </BottomDrawer>
+
+      {/* Preview Bottom Drawer */}
+      <BottomDrawer drawerHeight={580} refProp={previewDrawerRef}>
+        <PreviewSection
+          onRegenerate={() => {
+            previewDrawerRef.current?.close();
+            handleGenerate();
+          }}
+          onSave={() => {
+            // TODO: Implement save functionality
+            previewDrawerRef.current?.close();
+          }}
         />
       </BottomDrawer>
     </KeyboardAvoidingView>
